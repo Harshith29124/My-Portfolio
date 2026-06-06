@@ -6,3 +6,7 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 npm-debug.log*
+
+# Installed agent skills (local tooling, not app code)
+.agents
+.claude

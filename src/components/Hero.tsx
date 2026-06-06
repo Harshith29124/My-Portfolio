@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { useLenis } from "lenis/react";
 import { ArrowDown, ArrowUpRight, FlowArrow } from "@phosphor-icons/react";
 import NodeGraph from "./NodeGraph";
 import Magnetic from "./Magnetic";
-
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
 
 // The five stages every pipeline in the work shares. The hero panel narrates a
 // brief travelling through them, so the visual states what I actually build.
 const STAGES = ["Capture", "Understand", "Compose", "Verify", "Publish"] as const;
 
+// Headline split so each word can rise on its own beat (staggered reveal).
+const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
+
 export default function Hero() {
   const reduce = useReducedMotion();
+  const lenis = useLenis();
   const [active, setActive] = useState(0);
+
+  const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
 
   // Advance the active stage so the panel reads as a live run, not decoration.
   useEffect(() => {
@@ -52,13 +55,35 @@ export default function Hero() {
       <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
         {/* Left: message */}
         <div className="relative z-10 max-w-xl">
-          <motion.h1
-            {...rise(0.08)}
-            className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl"
-          >
-            I build AI systems that turn manual work into{" "}
-            <span className="text-accent-ink">reliable automation.</span>
-          </motion.h1>
+          <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
+            {HEAD_LEAD.map((word, i) => (
+              <motion.span
+                key={`${word}-${i}`}
+                className="inline-block"
+                initial={reduce ? false : { opacity: 0, y: "0.5em", filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.08 + i * 0.045,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {word}&nbsp;
+              </motion.span>
+            ))}
+            <motion.span
+              className="accent-shimmer inline-block"
+              initial={reduce ? false : { opacity: 0, y: "0.5em", filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                duration: 0.7,
+                delay: 0.08 + HEAD_LEAD.length * 0.045,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              reliable automation.
+            </motion.span>
+          </h1>
 
           <motion.p
             {...rise(0.16)}
@@ -71,7 +96,7 @@ export default function Hero() {
           <motion.div {...rise(0.24)} className="mt-9 flex flex-wrap gap-3">
             <Magnetic className="inline-block">
               <button
-                onClick={() => scrollTo("work")}
+                onClick={() => goTo("work")}
                 className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-2.5 pl-5 pr-2.5 text-sm font-semibold"
               >
                 See my work
@@ -82,7 +107,7 @@ export default function Hero() {
             </Magnetic>
             <Magnetic className="inline-block">
               <button
-                onClick={() => scrollTo("contact")}
+                onClick={() => goTo("contact")}
                 className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-accent active:translate-y-px"
               >
                 Get in touch

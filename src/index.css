@@ -1,10 +1,16 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
-/* Self-hosted fonts. Geist carries the brand voice (sharper, more
-   "engineered" than Poppins); JetBrains Mono stays for the small technical
-   labels (signature detail). */
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/jetbrains-mono";
+/* Self-hosted fonts. Poppins for display headings (warm geometric voice),
+   Inter for body/UI text (clean and legible at any size), DM Mono for the
+   small technical labels (signature detail). */
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource/dm-mono/latin-400.css";
+@import "@fontsource/dm-mono/latin-500.css";
 
 /* ----------------------------------------------------------------------
    D1 "Engineered" design tokens. Dual-mode: dark (default) + light.
@@ -28,8 +34,9 @@
 }
 
 @theme {
-  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", "Inter Variable", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", monospace;
 
   /* iOS-style soft radii. One scale, applied everywhere (shape lock). */
   --radius-sm: 10px;
@@ -105,6 +112,15 @@
     transition: background-color 0.4s ease, color 0.4s ease;
   }
 
+  /* Poppins carries every display heading; body text stays Inter. */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
   /* Faint engineering grid, fixed so it never repaints on scroll */
   body::before {
     content: "";
@@ -145,6 +161,28 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Slow accent pan on the headline highlight — reads as quiet, alive sheen
+     rather than a static colour. GPU-cheap (paints text, animates position). */
+  @keyframes accent-pan {
+    to {
+      background-position: 200% center;
+    }
+  }
+  .accent-shimmer {
+    background: linear-gradient(
+      100deg,
+      var(--color-accent-ink) 0%,
+      color-mix(in oklab, var(--color-accent-ink) 45%, var(--color-ink)) 45%,
+      var(--color-accent-ink) 90%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: accent-pan 5s linear infinite;
   }
   .text-pretty {
     text-wrap: pretty;
