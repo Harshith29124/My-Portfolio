@@ -1,127 +1,161 @@
 import { motion, useReducedMotion } from "motion/react";
 import { useLenis } from "lenis/react";
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
-import PipelineRun from "./PipelineRun";
 import Magnetic from "./Magnetic";
 
-// Headline split so each word can rise on its own beat (staggered reveal).
+// Headline split so each word rises on its own beat (transform-only mask reveal).
 const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
 
 export default function Hero() {
   const reduce = useReducedMotion();
   const lenis = useLenis();
-
   const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
 
   const rise = (delay: number) =>
     reduce
       ? {}
       : {
-          initial: { opacity: 0, y: 22 },
+          initial: { opacity: 0, y: 18 },
           animate: { opacity: 1, y: 0 },
           transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as const },
         };
 
+  const wordDelay = (i: number) => 0.15 + i * 0.04;
+
   return (
-    <section className="relative flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-16">
-      {/* breathing ambient glow, subtle, not neon */}
+    <section className="relative flex min-h-[100dvh] items-center overflow-hidden pt-28 pb-24">
+      {/* Ambient: teal primary glow (breathing) + a quiet gold counter-glow */}
       <motion.div
         aria-hidden
         animate={reduce ? {} : { opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -right-32 top-1/4 h-[560px] w-[560px] rounded-full blur-3xl"
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -right-40 top-[12%] h-[620px] w-[620px] rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(198,255,58,0.12), transparent 65%)",
+            "radial-gradient(circle, rgba(0,212,170,0.14), transparent 65%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 bottom-[-10%] h-[520px] w-[520px] rounded-full opacity-70 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(214,168,79,0.08), transparent 65%)",
         }}
       />
 
-      <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
-        {/* Left: message */}
-        <div className="relative z-10 max-w-xl">
-          <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
-            {HEAD_LEAD.map((word, i) => (
-              <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
-                <motion.span
-                  className="inline-block"
-                  initial={reduce ? false : { y: "100%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: 0.08 + i * 0.04,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {word}&nbsp;
-                </motion.span>
-              </span>
-            ))}
-            <span className="inline-block overflow-hidden align-bottom">
+      <div className="shell relative z-10">
+        {/* Eyebrow: availability (teal) + role, separated by a gold mark */}
+        <motion.div
+          {...rise(0)}
+          className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-2"
+        >
+          <span className="inline-flex items-center gap-2.5">
+            <span className="relative flex h-2 w-2" aria-hidden>
+              {!reduce && (
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+              )}
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
+            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-dim">
+              Available for freelance work
+            </span>
+          </span>
+          <span className="h-1 w-1 rounded-full bg-gold" aria-hidden />
+          <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-faint">
+            AI Workflow Engineer
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <h1 className="max-w-[16ch] text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[1.03] tracking-[-0.02em] text-ink lg:max-w-[18ch]">
+          {HEAD_LEAD.map((word, i) => (
+            <span
+              key={`${word}-${i}`}
+              className="inline-block overflow-hidden align-bottom"
+            >
               <motion.span
-                className="accent-shimmer inline-block"
-                initial={reduce ? false : { y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                className="inline-block"
+                initial={reduce ? false : { y: "110%" }}
+                animate={{ y: 0 }}
                 transition={{
-                  duration: 0.8,
-                  delay: 0.08 + HEAD_LEAD.length * 0.04,
+                  duration: 0.75,
+                  delay: wordDelay(i),
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                reliable automation.
+                {word}&nbsp;
               </motion.span>
             </span>
-          </h1>
+          ))}
+          <span className="inline-block overflow-hidden align-bottom">
+            <motion.span
+              className="accent-shimmer inline-block"
+              initial={reduce ? false : { y: "110%" }}
+              animate={{ y: 0 }}
+              transition={{
+                duration: 0.85,
+                delay: wordDelay(HEAD_LEAD.length),
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              reliable automation.
+            </motion.span>
+          </span>
+        </h1>
 
-          <motion.p
-            {...rise(0.16)}
-            className="mt-6 max-w-md text-pretty text-base leading-relaxed text-dim md:text-lg"
-          >
-            Concretely: multi-model pipelines, LLM apps, and structured output
-            that holds up in production, not just in a demo.
-          </motion.p>
-
-          <motion.div {...rise(0.24)} className="mt-9 flex flex-wrap gap-3">
-            <Magnetic className="inline-block">
-              <button
-                onClick={() => goTo("work")}
-                className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-2.5 pl-5 pr-2.5 text-sm font-semibold"
-              >
-                See my work
-                <span className="cta-icon">
-                  <ArrowDown weight="bold" size={14} />
-                </span>
-              </button>
-            </Magnetic>
-            <Magnetic className="inline-block">
-              <button
-                onClick={() => goTo("contact")}
-                className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-accent active:translate-y-px"
-              >
-                Get in touch
-                <ArrowUpRight weight="bold" size={16} className="text-dim" />
-              </button>
-            </Magnetic>
-          </motion.div>
-        </div>
-
-        {/* Right: the signature live pipeline */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, scale: 0.95, y: 14 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.3, ease: [0.32, 0.72, 0, 1] }}
-          className="relative"
+        {/* Sub */}
+        <motion.p
+          {...rise(0.55)}
+          className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-dim md:text-lg"
         >
-          <motion.div
-            animate={reduce ? {} : { y: [0, -10, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            className="bezel-shell elev-soft relative h-[360px] w-full sm:h-[420px] lg:h-[500px]"
-          >
-            <div className="bezel-core h-full">
-              <PipelineRun />
-            </div>
-          </motion.div>
+          Concretely: multi-model pipelines, LLM apps, and structured output that
+          holds up in production, not just in a demo.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div {...rise(0.65)} className="mt-10 flex flex-wrap items-center gap-3">
+          <Magnetic className="inline-block">
+            <button
+              onClick={() => goTo("work")}
+              className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-3 pl-6 pr-3 text-sm font-semibold"
+              style={{ touchAction: "manipulation" }}
+            >
+              See my work
+              <span className="cta-icon">
+                <ArrowDown weight="bold" size={14} />
+              </span>
+            </button>
+          </Magnetic>
+          <Magnetic className="inline-block">
+            <button
+              onClick={() => goTo("contact")}
+              className="inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-accent active:translate-y-px"
+              style={{ touchAction: "manipulation" }}
+            >
+              Get in touch
+              <ArrowUpRight weight="bold" size={16} className="text-dim" />
+            </button>
+          </Magnetic>
         </motion.div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.button
+        onClick={() => goTo("work")}
+        aria-label="Scroll to work"
+        {...rise(0.9)}
+        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint transition-colors hover:text-dim md:flex"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em]">Scroll</span>
+        <motion.span
+          animate={reduce ? {} : { y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden
+        >
+          <ArrowDown weight="bold" size={14} />
+        </motion.span>
+      </motion.button>
     </section>
   );
 }

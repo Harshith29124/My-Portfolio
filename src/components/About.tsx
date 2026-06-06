@@ -26,7 +26,7 @@ export default function About() {
                 className="pointer-events-none absolute inset-0 opacity-60"
                 style={{
                   backgroundImage:
-                    "radial-gradient(circle at 30% 20%, rgba(198,255,58,0.10), transparent 55%)",
+                    "radial-gradient(circle at 30% 20%, rgba(0,212,170,0.12), transparent 55%)",
                 }}
                 aria-hidden
               />

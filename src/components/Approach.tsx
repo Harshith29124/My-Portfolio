@@ -42,7 +42,7 @@ export default function Approach() {
         className="pointer-events-none absolute inset-0 opacity-70"
         style={{
           background:
-            "radial-gradient(60% 50% at 50% 50%, rgba(198,255,58,0.05), transparent 70%)",
+            "radial-gradient(60% 50% at 50% 50%, rgba(0,212,170,0.06), transparent 70%)",
         }}
       />
       <div className="shell relative flex min-h-[70vh] max-w-4xl flex-col justify-center py-28 md:py-40">
