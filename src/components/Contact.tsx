@@ -14,7 +14,7 @@ export default function Contact() {
       id="contact"
       className="relative scroll-mt-28 border-t border-line bg-surface/40"
     >
-      <div className="shell relative py-24 md:py-36">
+      <div className="shell relative py-20 md:py-28">
         <Reveal>
           <h2 className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight md:text-5xl">
             Have a manual process that should be a reliable system? Tell me about
