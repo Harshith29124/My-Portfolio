@@ -64,19 +64,14 @@ export default function TechMarquee() {
     <motion.section
       aria-label="Tools and models used across the work"
       className="border-y border-line bg-surface/20 py-12"
-      initial={reduce ? false : { opacity: 0, y: 28, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+      initial={reduce ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
     >
-      <div className="shell mb-7 flex items-center gap-2.5">
-        <span
-          className="grid h-3.5 w-3.5 place-items-center rounded-[4px] border border-accent/30 bg-accent/5"
-          aria-hidden
-        >
-          <span className="h-1.5 w-1.5 rounded-[1.5px] bg-accent" />
-        </span>
-        <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-faint">
+      <div className="shell mb-7 flex items-center gap-3">
+        <span className="h-3 w-px bg-accent" aria-hidden />
+        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-faint">
           The stack behind the work
         </p>
       </div>

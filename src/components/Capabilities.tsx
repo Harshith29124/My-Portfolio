@@ -49,9 +49,9 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
   const reduce = useReducedMotion();
   return (
     <motion.article
-      initial={reduce ? false : { opacity: 0, y: 26, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={reduce ? false : { opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
       transition={{
         duration: 0.6,
         delay: (index % 3) * 0.08,

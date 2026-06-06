@@ -169,7 +169,7 @@ export default function CaseStudy() {
             {study.tech.map((t) => (
               <li
                 key={t}
-                className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[13px] text-dim"
+                className="rounded-[6px] border border-line px-3.5 py-1.5 font-mono text-[13px] text-dim"
               >
                 {t}
               </li>
