@@ -76,8 +76,8 @@
   --btn: #7a321f;
   --on-btn: #ffffff;
   --on-accent: #ffffff;
-  --glass: rgba(255, 255, 255, 0.62);
-  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.85);
 
   --grid-line: rgba(18, 20, 26, 0.035);
   --veil-top: rgba(243, 244, 246, 0.2);
@@ -105,8 +105,8 @@
   --btn: #c2502f;
   --on-btn: #ffffff;
   --on-accent: #0a0b0f;
-  --glass: rgba(28, 30, 38, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass: rgba(18, 20, 27, 0.46);
+  --glass-border: rgba(255, 255, 255, 0.16);
 
   --grid-line: rgba(255, 255, 255, 0.025);
   --veil-top: rgba(10, 11, 15, 0.35);
@@ -196,12 +196,20 @@
      scrolling content tanks frame rate. */
   .glass {
     background: var(--color-glass);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    backdrop-filter: blur(32px) saturate(200%);
     border: 1px solid var(--color-glass-border);
+    /* bright top sheen + thin inner edge = the specular "liquid glass" look */
     box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
-      0 14px 40px -18px rgba(0, 0, 0, 0.45);
+      inset 0 1.5px 0 0 rgba(255, 255, 255, 0.55),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 18px 50px -22px rgba(0, 0, 0, 0.5);
+  }
+  /* Graceful fallback where backdrop-filter is unsupported: solidify a touch. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background: color-mix(in oklab, var(--color-canvas) 90%, transparent);
+    }
   }
 
   /* Slow accent pan on the headline highlight — reads as quiet, alive sheen
