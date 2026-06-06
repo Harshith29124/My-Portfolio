@@ -125,6 +125,9 @@
     background-color: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    /* Baseline weight is medium, not thin — nothing on the site renders light.
+       Labels/links bump to semibold; display headings stay 600+. */
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transition: background-color 0.4s ease, color 0.4s ease;

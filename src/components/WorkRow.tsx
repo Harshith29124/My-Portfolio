@@ -32,7 +32,7 @@ export default function WorkRow({ project }: { project: Project }) {
       <div className="pointer-events-none relative grid gap-6 py-9 pl-5 transition-[padding] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:pl-7 md:grid-cols-[1fr_auto] md:items-end md:gap-12 md:py-11">
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-faint">
+            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-dim">
               {kicker}
             </span>
             {inProgress && (
@@ -55,7 +55,7 @@ export default function WorkRow({ project }: { project: Project }) {
             {tags.map((t) => (
               <li
                 key={t}
-                className="rounded-[6px] border border-line px-2.5 py-0.5 font-mono text-[11px] text-faint"
+                className="rounded-[6px] border border-line px-2.5 py-0.5 font-mono text-[11px] font-medium text-dim"
               >
                 {t}
               </li>
@@ -76,14 +76,14 @@ export default function WorkRow({ project }: { project: Project }) {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 text-sm text-dim transition-colors hover:text-ink"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-ink"
               >
                 {l.label}
                 <ArrowUpRight size={14} weight="bold" />
               </a>
             ))}
             {hasCaseStudy && (
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink">
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ink">
                 {inProgress ? "Preview" : "Case study"}
                 <ArrowRight
                   weight="bold"
