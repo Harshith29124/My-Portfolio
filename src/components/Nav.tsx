@@ -91,7 +91,7 @@ export default function Nav() {
               {s.label}
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-x-100"
+                className="pointer-events-none absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-x-100 group-active:scale-x-100"
               />
             </button>
           ))}
