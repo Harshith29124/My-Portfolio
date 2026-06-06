@@ -23,7 +23,7 @@ export default function Hero() {
   const wordDelay = (i: number) => 0.15 + i * 0.04;
 
   return (
-    <section className="relative flex flex-col overflow-hidden pb-16 pt-32 md:min-h-[100svh] md:justify-center md:pb-20 md:pt-40">
+    <section className="relative flex flex-col overflow-hidden pb-20 pt-32 md:pt-40 landscape:min-h-[100svh] landscape:justify-center">
       <div className="shell relative z-10">
         {/* Eyebrow: a substantial role line + an availability marker.
             Real type weight, not slim wide-tracked caps. */}
