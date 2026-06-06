@@ -12,16 +12,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden border-t border-line bg-surface/30"
+      className="relative scroll-mt-28 border-t border-line bg-surface/40"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[720px] -translate-x-1/2 opacity-70 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(ellipse, rgba(0,212,170,0.08), transparent 70%)",
-        }}
-      />
       <div className="shell relative py-24 md:py-36">
         <Reveal>
           <h2 className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight md:text-5xl">

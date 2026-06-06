@@ -36,15 +36,7 @@ export default function Approach() {
   );
 
   return (
-    <section ref={ref} className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 50% 50%, rgba(0,212,170,0.06), transparent 70%)",
-        }}
-      />
+    <section ref={ref} className="relative overflow-hidden border-y border-line bg-surface/30">
       <div className="shell relative flex min-h-[70vh] max-w-4xl flex-col justify-center py-28 md:py-40">
         <h2 className="sr-only">How I think about reliability</h2>
         <p className="text-balance text-2xl font-medium leading-[1.35] tracking-tight md:text-[2.6rem] md:leading-[1.3]">

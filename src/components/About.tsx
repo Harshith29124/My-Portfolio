@@ -22,14 +22,6 @@ export default function About() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
               />
-              <div
-                className="pointer-events-none absolute inset-0 opacity-60"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle at 30% 20%, rgba(0,212,170,0.12), transparent 55%)",
-                }}
-                aria-hidden
-              />
               <div className="pointer-events-none absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.18em] text-faint mix-blend-difference">
                 harshith
               </div>
