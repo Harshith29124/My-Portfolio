@@ -72,7 +72,7 @@ export default function WorkRow({ project }: { project: Project }) {
         <div className="flex items-center justify-between gap-6 md:flex-col md:items-end md:justify-end">
           <NodeGlyph
             seed={slug}
-            className="text-faint transition-colors duration-500 group-hover:text-accent-ink"
+            className="text-faint transition-[color,transform] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 group-hover:-rotate-3 group-hover:text-accent-ink"
           />
           <div className="pointer-events-auto relative z-10 flex items-center gap-5">
             {links.map((l) => (
