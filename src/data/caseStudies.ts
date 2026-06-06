@@ -139,11 +139,10 @@ const creativeOps: CaseStudy = {
   kicker: "Flagship case study",
   outcome:
     "A multi-model content pipeline that turns a one-line brief into validated, on-brand output, without a human babysitting every step.",
-  inProgress: true,
   meta: [
     { label: "Type", value: "Production AI pipeline" },
     { label: "Focus", value: "Reliability & cost engineering" },
-    { label: "Write-up", value: "In progress" },
+    { label: "Pattern", value: "Multi-model + QA gates" },
   ],
   problem: [
     "Producing on-brand content at volume is mostly invisible manual labour: drafting, reformatting, checking it didn't drift off-brand, fixing the one field that came back malformed, doing it again tomorrow. It scales linearly with headcount, which is to say it doesn't scale.",
@@ -152,7 +151,7 @@ const creativeOps: CaseStudy = {
   build: [
     "A pipeline that takes a structured brief and runs it through tiered models, schema-constrained generation, and explicit quality gates before anything is considered done. Cheap models do the bulk work; expensive models are spent only where judgment is actually needed.",
     "Every stage assumes the model can be wrong. Output is validated against a schema, checked by a QA gate, and when something fails the run is logged with enough context to recover, not silently dropped.",
-    "This is a clean rebuild around public APIs that demonstrates the architecture and the engineering judgment. The full write-up with diagrams and sample runs is in progress.",
+    "This is a clean rebuild around public APIs that demonstrates the architecture and the engineering judgment behind it, with generic demo content in place of any real campaign data.",
   ],
   pipeline: [
     {
@@ -228,9 +227,254 @@ const creativeOps: CaseStudy = {
   links: [],
 };
 
+const novaAi: CaseStudy = {
+  slug: "nova-ai",
+  title: "Nova AI",
+  kicker: "Deployed LLM chat app",
+  outcome:
+    "A live chat app on an open model that never exposes its API key to the browser, because the secret stays on the server where it belongs.",
+  meta: [
+    { label: "Type", value: "Deployed web app" },
+    { label: "Model", value: "Llama 3.1 8B (Hugging Face)" },
+    { label: "Role", value: "Solo build" },
+  ],
+  problem: [
+    "The fastest way to ship an LLM chat app is also the most common way to leak a key: call the model API straight from the frontend. It works in a demo and quietly hands your token to anyone who opens the network tab.",
+    "I wanted the simplest possible chat app that still did the one thing most quick builds get wrong, keep the credential server-side.",
+  ],
+  build: [
+    "Nova AI is a lightweight chat interface running Meta's Llama 3.1 8B through the Hugging Face Inference API. The frontend never sees the token; every request goes through a small serverless function that holds the secret and proxies the call.",
+    "No framework, no build ceremony, deployed and live. The point was to prove the discipline, not to over-engineer it: a clean UI, a streaming response, and a credential that an attacker can't pull out of the client.",
+  ],
+  pipeline: [
+    {
+      title: "Client",
+      nodes: [
+        { id: "ui", label: "Chat UI", detail: "Plain JS, no key present", kind: "input" },
+      ],
+    },
+    {
+      title: "Proxy",
+      nodes: [
+        { id: "fn", label: "Serverless function", detail: "Holds the token, server-side", kind: "logic" },
+      ],
+    },
+    {
+      title: "Model",
+      nodes: [
+        { id: "hf", label: "Hugging Face Inference", detail: "Llama 3.1 8B", kind: "model" },
+      ],
+    },
+    {
+      title: "Return",
+      nodes: [
+        { id: "resp", label: "Response to client", detail: "Token never leaves server", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "The secret never reaches the browser",
+      body: "The API token lives only in the serverless function's environment. The client calls the proxy, the proxy calls the model. Open the network tab all you like, the credential isn't there.",
+    },
+    {
+      title: "A proxy, not a backend",
+      body: "There's no database, no auth, no server to babysit, just a single function that exists to keep one secret secret. The smallest piece of infrastructure that solves the actual problem.",
+    },
+    {
+      title: "Open model, on purpose",
+      body: "Running Llama via Hugging Face instead of a closed API keeps the app cheap and swappable. The proxy pattern means the model behind it can change without touching the client.",
+    },
+  ],
+  results: [
+    {
+      label: "What it proves",
+      body: "The instinct that separates a demo from something shippable: never trust the client with a secret, even when the lazy path is right there.",
+    },
+    {
+      label: "Status",
+      body: "Built solo and deployed live. A deployed LLM chat app, not a production product, and it doesn't pretend to be more.",
+    },
+  ],
+  tech: [
+    "Llama 3.1 8B",
+    "Hugging Face Inference API",
+    "Serverless proxy",
+    "Vanilla JavaScript",
+    "Vercel",
+  ],
+  links: [{ label: "View on GitHub", href: GITHUB }],
+};
+
+const blogspace: CaseStudy = {
+  slug: "blogspace",
+  title: "BlogSpace",
+  kicker: "Live & deployed full-stack",
+  outcome:
+    "A complete blogging platform with authentication, roles, and an admin panel, built end to end and running in production.",
+  meta: [
+    { label: "Type", value: "Full-stack web app" },
+    { label: "Stack", value: "React + Node + MongoDB" },
+    { label: "Role", value: "Solo, front to back" },
+  ],
+  problem: [
+    "A blogging platform sounds simple until you list what it actually needs: accounts, secure login, two kinds of users, content that only the right people can edit, and an admin who can moderate all of it. That's a real application, not a toy.",
+    "I built it solo, end to end, as proof I can take a full-stack product from auth to deployment without hand-waving the hard parts.",
+  ],
+  build: [
+    "BlogSpace handles the full lifecycle: register and log in with JWT-based auth and hashed passwords, write and publish posts in a rich-text editor, and manage everything through an admin panel with role-based access.",
+    "Users get drafts, published states, tags, auto-generated excerpts and read-time. Admins get user promotion/demotion and post moderation. It's deployed across Netlify, Render, and MongoDB Atlas, and it's live, not a localhost screenshot.",
+  ],
+  pipeline: [
+    {
+      title: "Auth",
+      nodes: [
+        { id: "register", label: "Register / login", detail: "JWT + bcrypt", kind: "input" },
+        { id: "role", label: "Role assignment", detail: "User vs admin", kind: "logic" },
+      ],
+    },
+    {
+      title: "Content",
+      nodes: [
+        { id: "editor", label: "Rich-text editor", detail: "Draft / publish", kind: "input" },
+        { id: "crud", label: "Post CRUD", detail: "Owned by author", kind: "logic" },
+      ],
+    },
+    {
+      title: "Guard",
+      nodes: [
+        { id: "protect", label: "Protected routes", detail: "Access by role", kind: "gate" },
+      ],
+    },
+    {
+      title: "Admin",
+      nodes: [
+        { id: "moderate", label: "Moderation panel", detail: "Manage users & posts", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "Auth done properly, not faked",
+      body: "JWT tokens, bcrypt-hashed passwords, protected routes, and role-based access control. The boring security fundamentals that separate a real app from a tutorial, implemented rather than skipped.",
+    },
+    {
+      title: "Two user classes, enforced server-side",
+      body: "Users manage their own content; admins manage everyone's. The boundary is enforced on the backend, not hidden in the UI, so the permission model actually holds.",
+    },
+    {
+      title: "Deployed across three services",
+      body: "Frontend on Netlify, backend on Render, database on MongoDB Atlas. Wiring those together and keeping them talking in production is its own skill, and it's live.",
+    },
+  ],
+  results: [
+    {
+      label: "What it proves",
+      body: "End-to-end full-stack capability: a working auth system, a real permission model, and a deployment that strangers can actually use.",
+    },
+    {
+      label: "Try it",
+      body: "It's live and clickable, with demo accounts available, the strongest kind of proof: not a description, a working thing.",
+    },
+  ],
+  tech: [
+    "React",
+    "Node.js / Express",
+    "MongoDB / Mongoose",
+    "JWT + bcrypt",
+    "Netlify + Render",
+  ],
+  links: [
+    { label: "Live site", href: "https://tangerine-cupcake-145674.netlify.app/login" },
+    { label: "View on GitHub", href: GITHUB },
+  ],
+};
+
+const aiNotes: CaseStudy = {
+  slug: "ai-notes",
+  title: "AI Notes",
+  kicker: "Local inference, no server",
+  outcome:
+    "A note-taking app whose AI features run entirely on your own machine, so your notes never leave it.",
+  meta: [
+    { label: "Type", value: "Local-LLM web app" },
+    { label: "Model", value: "DeepSeek R1 via Ollama" },
+    { label: "Role", value: "Solo build" },
+  ],
+  problem: [
+    "Almost every AI note app sends your writing to a third-party API. For private notes, that's the opposite of what you want, and it means the app is useless offline.",
+    "I wanted to show the alternative most people skip: useful AI features that don't require a cloud call, a subscription, or trusting someone else with your data.",
+  ],
+  build: [
+    "AI Notes runs DeepSeek R1 locally through Ollama, called straight from the browser. Summarize, improve writing, expand an idea, generate questions, extract keywords, all of it happens on the user's own machine.",
+    "Built with plain HTML, CSS, and JavaScript, no frameworks, with notes stored locally in the browser. Once the model is pulled, the whole thing works offline. The point was to keep it dependency-light and prove local inference is a real option, not a compromise.",
+  ],
+  pipeline: [
+    {
+      title: "Write",
+      nodes: [
+        { id: "note", label: "Note in browser", detail: "Stored locally", kind: "input" },
+      ],
+    },
+    {
+      title: "Local model",
+      nodes: [
+        { id: "ollama", label: "Ollama runtime", detail: "On the user's machine", kind: "model" },
+        { id: "ds", label: "DeepSeek R1", detail: "No external call", kind: "model" },
+      ],
+    },
+    {
+      title: "Assist",
+      nodes: [
+        { id: "ops", label: "Summarize / expand / extract", detail: "AI actions", kind: "logic" },
+      ],
+    },
+    {
+      title: "Stay private",
+      nodes: [
+        { id: "local", label: "Nothing leaves the device", detail: "Offline-capable", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "Inference stays on the machine",
+      body: "The model runs through Ollama locally. There's no API endpoint receiving your notes, because there's no external call at all. Privacy isn't a policy promise here, it's the architecture.",
+    },
+    {
+      title: "Works offline once set up",
+      body: "Pull the model once and the app keeps working with no internet. The AI features don't depend on a server being up or a bill being paid.",
+    },
+    {
+      title: "Deliberately dependency-light",
+      body: "Plain HTML, CSS, and JavaScript, no framework, browser storage for the notes. Small enough to understand fully, which was the point.",
+    },
+  ],
+  results: [
+    {
+      label: "What it demonstrates",
+      body: "That local and self-hosted inference is a practical choice, and the awareness of when keeping data on-device matters more than convenience.",
+    },
+    {
+      label: "Scope",
+      body: "A focused solo build proving the local-LLM pattern, not a feature-complete notes product.",
+    },
+  ],
+  tech: [
+    "DeepSeek R1",
+    "Ollama (local)",
+    "Vanilla JavaScript",
+    "Browser storage",
+  ],
+  links: [{ label: "View on GitHub", href: GITHUB }],
+};
+
 export const caseStudies: Record<string, CaseStudy> = {
   craftconnect,
   "creative-ops-pipeline": creativeOps,
+  "nova-ai": novaAi,
+  blogspace,
+  "ai-notes": aiNotes,
 };
 
 export const getCaseStudy = (slug: string): CaseStudy | undefined =>
