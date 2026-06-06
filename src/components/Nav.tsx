@@ -55,13 +55,7 @@ export default function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 md:pt-5">
-      <nav
-        className="flex w-full max-w-2xl items-center justify-between gap-2 rounded-full border border-line bg-canvas/70 py-2 pl-4 pr-2 backdrop-blur-xl"
-        style={{
-          boxShadow:
-            "inset 0 1px 0 0 rgba(255,255,255,0.06), 0 12px 40px -20px rgba(0,0,0,0.6)",
-        }}
-      >
+      <nav className="glass flex w-full max-w-2xl items-center justify-between gap-2 rounded-full py-2 pl-4 pr-2">
         <Link
           to="/"
           onClick={() => pathname === "/" && goTo("top")}

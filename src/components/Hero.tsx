@@ -23,8 +23,8 @@ export default function Hero() {
   const wordDelay = (i: number) => 0.15 + i * 0.04;
 
   return (
-    <section className="relative flex min-h-[100dvh] items-center overflow-hidden pt-28 pb-24">
-      <div className="shell relative z-10">
+    <section className="relative flex min-h-[100svh] flex-col overflow-hidden pb-10 pt-28 md:pt-32">
+      <div className="shell relative z-10 flex flex-1 flex-col justify-center">
         {/* Eyebrow: a substantial role line + an availability marker.
             Real type weight, not slim wide-tracked caps. */}
         <motion.div
@@ -114,14 +114,16 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue — anchored at the bottom of the viewport (mobile + desktop) */}
       <motion.button
         onClick={() => goTo("work")}
         aria-label="Scroll to work"
         {...rise(0.9)}
-        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint transition-colors hover:text-dim md:flex"
+        className="relative z-10 mx-auto mt-12 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
       >
-        <span className="font-mono text-[10px] uppercase tracking-[0.24em]">Scroll</span>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em]">
+          Scroll
+        </span>
         <motion.span
           animate={reduce ? {} : { y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
