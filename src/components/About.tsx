@@ -13,7 +13,7 @@ export default function About() {
         {/* Portrait + facts */}
         <Reveal>
           <div className="lg:sticky lg:top-28">
-            <div className="group elev relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated">
+            <div className="group glass-card relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)]">
               <img
                 src="/profile.jpg"
                 alt="Harshith Nayaka L"
@@ -27,11 +27,11 @@ export default function About() {
               </div>
             </div>
 
-            <dl className="mt-6 max-w-xs space-y-px">
+            <dl className="glass-card mt-6 max-w-xs rounded-[var(--radius)] px-4">
               {facts.map((f) => (
                 <div
                   key={f.k}
-                  className="flex items-baseline justify-between border-t border-line py-3"
+                  className="flex items-baseline justify-between border-t border-line py-3 first:border-t-0"
                 >
                   <dt className="font-mono text-[12px] font-medium uppercase tracking-wider text-dim">
                     {f.k}
