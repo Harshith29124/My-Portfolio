@@ -51,7 +51,7 @@ export default function CaseStudy() {
           <dl className="mt-10 grid gap-px border-t border-line sm:grid-cols-2 lg:grid-cols-4">
             {study.meta.map((m) => (
               <div key={m.label} className="border-b border-line py-4 pr-4 sm:border-b-0">
-                <dt className="font-mono text-[11px] uppercase tracking-wider text-faint">
+                <dt className="font-mono text-[11px] font-medium uppercase tracking-wider text-dim">
                   {m.label}
                 </dt>
                 <dd className="mt-1.5 text-sm leading-snug text-ink">{m.value}</dd>
@@ -162,7 +162,7 @@ export default function CaseStudy() {
       {/* Tech */}
       <section className="shell py-12 md:py-16">
         <Reveal>
-          <h2 className="mb-6 font-mono text-[12px] uppercase tracking-[0.18em] text-faint">
+          <h2 className="mb-6 font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-dim">
             Built with
           </h2>
           <ul className="flex flex-wrap gap-2">
@@ -240,7 +240,7 @@ function Legend() {
       {items.map((it) => (
         <span
           key={it.label}
-          className="inline-flex items-center gap-2 font-mono text-[11px] text-faint"
+          className="inline-flex items-center gap-2 font-mono text-[11px] font-medium text-dim"
         >
           <span className={`h-1.5 w-1.5 rounded-full ${it.dot}`} aria-hidden />
           {it.label}

@@ -33,10 +33,10 @@ export default function About() {
                   key={f.k}
                   className="flex items-baseline justify-between border-t border-line py-3"
                 >
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-faint">
+                  <dt className="font-mono text-[12px] font-medium uppercase tracking-wider text-dim">
                     {f.k}
                   </dt>
-                  <dd className="text-sm text-ink">{f.v}</dd>
+                  <dd className="text-sm font-semibold text-ink">{f.v}</dd>
                 </div>
               ))}
             </dl>

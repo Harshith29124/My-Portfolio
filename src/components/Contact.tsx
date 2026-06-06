@@ -40,7 +40,7 @@ export default function Contact() {
             </Magnetic>
             <a
               href={`mailto:${EMAIL}`}
-              className="font-mono text-sm text-dim transition-colors hover:text-ink"
+              className="font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink"
             >
               {EMAIL}
             </a>
@@ -53,7 +53,7 @@ export default function Contact() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 text-sm text-dim transition-colors hover:text-ink"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-accent-ink"
               >
                 {s.label}
                 <ArrowUpRight size={14} weight="bold" />

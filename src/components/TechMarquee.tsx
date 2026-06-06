@@ -71,7 +71,7 @@ export default function TechMarquee() {
     >
       <div className="shell mb-7 flex items-center gap-3">
         <span className="h-3 w-px bg-accent" aria-hidden />
-        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-faint">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-dim">
           The stack behind the work
         </p>
       </div>
