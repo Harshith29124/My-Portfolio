@@ -11,7 +11,7 @@ function Tags({ tags }: { tags: string[] }) {
       {tags.map((t) => (
         <li
           key={t}
-          className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[11px] text-faint"
+          className="rounded-[6px] border border-line px-2.5 py-0.5 font-mono text-[11px] text-faint"
         >
           {t}
         </li>
@@ -49,8 +49,11 @@ export default function WorkCard({
             </span>
             <div className="flex items-center gap-3">
               {status === "in-progress" && (
-                <span className="inline-flex items-center gap-1.5 rounded-[6px] border border-line bg-elevated px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
-                  <span className="h-1.5 w-1.5 rounded-[1.5px] bg-accent" aria-hidden />
+                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-dim">
+                  <span className="relative flex h-1.5 w-1.5" aria-hidden>
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                  </span>
                   In progress
                 </span>
               )}

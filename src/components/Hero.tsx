@@ -27,7 +27,7 @@ export default function Hero() {
       {/* breathing ambient glow, subtle, not neon */}
       <motion.div
         aria-hidden
-        animate={reduce ? {} : { opacity: [0.45, 0.75, 0.45], scale: [1, 1.12, 1] }}
+        animate={reduce ? {} : { opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         className="pointer-events-none absolute -right-32 top-1/4 h-[560px] w-[560px] rounded-full blur-3xl"
         style={{
@@ -41,32 +41,35 @@ export default function Hero() {
         <div className="relative z-10 max-w-xl">
           <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
             {HEAD_LEAD.map((word, i) => (
+              <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
+                <motion.span
+                  className="inline-block"
+                  initial={reduce ? false : { y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.08 + i * 0.04,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {word}&nbsp;
+                </motion.span>
+              </span>
+            ))}
+            <span className="inline-block overflow-hidden align-bottom">
               <motion.span
-                key={`${word}-${i}`}
-                className="inline-block"
-                initial={reduce ? false : { opacity: 0, y: "0.5em", filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                className="accent-shimmer inline-block"
+                initial={reduce ? false : { y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{
-                  duration: 0.6,
-                  delay: 0.08 + i * 0.045,
+                  duration: 0.8,
+                  delay: 0.08 + HEAD_LEAD.length * 0.04,
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {word}&nbsp;
+                reliable automation.
               </motion.span>
-            ))}
-            <motion.span
-              className="accent-shimmer inline-block"
-              initial={reduce ? false : { opacity: 0, y: "0.5em", filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.7,
-                delay: 0.08 + HEAD_LEAD.length * 0.045,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              reliable automation.
-            </motion.span>
+            </span>
           </h1>
 
           <motion.p

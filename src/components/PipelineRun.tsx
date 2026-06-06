@@ -49,21 +49,12 @@ export default function PipelineRun() {
             content-pipeline
           </span>
         </div>
-        <span className="inline-flex items-center gap-2 rounded-[6px] border border-line bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-dim">
-          <span className="flex h-3 items-end gap-[2px]" aria-hidden>
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                className="w-[2px] rounded-[1px] bg-accent"
-                animate={reduce ? { height: 7 } : { height: [4, 12, 6, 10, 4] }}
-                transition={{
-                  duration: 1.1,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * 0.18,
-                }}
-              />
-            ))}
+        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-dim">
+          <span className="relative flex h-1.5 w-1.5" aria-hidden>
+            {!reduce && (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+            )}
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
           Live
         </span>

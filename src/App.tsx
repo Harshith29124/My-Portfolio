@@ -1,11 +1,15 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { ReactLenis, useLenis } from "lenis/react";
+import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import Home from "./pages/Home";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Case study lives behind a route the landing page never needs up front, so it
 // is code-split — the initial bundle stays lean and the homepage paints sooner.
@@ -17,17 +21,19 @@ function ScrollManager() {
   useEffect(() => {
     if (hash) return; // let in-page anchors handle themselves
     lenis?.scrollTo(0, { immediate: true });
+    ScrollTrigger.refresh();
   }, [pathname, hash, lenis]);
   return null;
 }
 
 // Pages glide in/out as a unit, so route changes feel like a deliberate
-// transition rather than a hard cut. Transform + opacity only (GPU-cheap).
+// transition rather than a hard cut. Transform + opacity only (GPU-composited,
+// no filter animation) so it stays smooth.
 const pageMotion = {
-  initial: { opacity: 0, y: 10, filter: "blur(6px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -8, filter: "blur(6px)" },
-  transition: { duration: 0.45, ease: [0.32, 0.72, 0, 1] as const },
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.4, ease: [0.32, 0.72, 0, 1] as const },
 };
 
 function Page({ children }: { children: React.ReactNode }) {
@@ -57,8 +63,33 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  const lenisRef = useRef<LenisRef>(null);
+
+  // Unify Lenis + GSAP under a single rAF loop and feed scroll into
+  // ScrollTrigger. Without this the pinned/scrubbed sections desync from the
+  // smooth scroll and stutter — this is what makes the motion buttery.
+  useEffect(() => {
+    function onFrame(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+    gsap.ticker.add(onFrame);
+    gsap.ticker.lagSmoothing(0);
+
+    const lenis = lenisRef.current?.lenis;
+    lenis?.on("scroll", ScrollTrigger.update);
+
+    return () => {
+      gsap.ticker.remove(onFrame);
+      lenis?.off("scroll", ScrollTrigger.update);
+    };
+  }, []);
+
   return (
-    <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1 }}>
+    <ReactLenis
+      root
+      ref={lenisRef}
+      options={{ lerp: 0.12, smoothWheel: true, autoRaf: false }}
+    >
       <ScrollManager />
       <ScrollProgress />
       <Nav />
