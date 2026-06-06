@@ -1,25 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <rect width="1200" height="630" fill="#0A0A0B"/>
+  <rect width="1200" height="630" fill="#070A12"/>
   <!-- faint grid -->
   <g stroke="#FFFFFF" stroke-opacity="0.04">
     <path d="M0 90 H1200 M0 180 H1200 M0 270 H1200 M0 360 H1200 M0 450 H1200 M0 540 H1200"/>
     <path d="M150 0 V630 M300 0 V630 M450 0 V630 M600 0 V630 M750 0 V630 M900 0 V630 M1050 0 V630"/>
   </g>
   <!-- eyebrow -->
-  <text x="80" y="150" fill="#C6FF3A" font-family="monospace" font-size="24" letter-spacing="6">AI ENGINEER</text>
+  <text x="80" y="150" fill="#00D4AA" font-family="monospace" font-size="24" letter-spacing="6">AI ENGINEER</text>
   <!-- headline -->
-  <text x="78" y="270" fill="#EDEDEF" font-family="Geist, Arial, sans-serif" font-size="68" font-weight="700">I build AI systems that turn</text>
-  <text x="78" y="350" fill="#EDEDEF" font-family="Geist, Arial, sans-serif" font-size="68" font-weight="700">manual work into <tspan fill="#C6FF3A">reliable</tspan></text>
-  <text x="78" y="430" fill="#C6FF3A" font-family="Geist, Arial, sans-serif" font-size="68" font-weight="700">automation.</text>
+  <text x="78" y="270" fill="#E9EDF4" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">I build AI systems that turn</text>
+  <text x="78" y="350" fill="#E9EDF4" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">manual work into <tspan fill="#00D4AA">reliable</tspan></text>
+  <text x="78" y="430" fill="#00D4AA" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">automation.</text>
   <!-- footer line -->
-  <text x="80" y="560" fill="#84848C" font-family="monospace" font-size="22">harshith  ·  LLM pipelines  ·  multi-modal  ·  production-reliable</text>
+  <text x="80" y="560" fill="#6B7589" font-family="monospace" font-size="22">harshith  ·  LLM pipelines  ·  multi-modal  ·  production-reliable</text>
   <!-- node mark -->
   <g transform="translate(1000,120)">
-    <g stroke="#C6FF3A" stroke-width="2" opacity="0.6">
+    <g stroke="#00D4AA" stroke-width="2" opacity="0.6">
       <path d="M0 0 L40 20 M0 40 L40 20"/>
     </g>
-    <circle cx="0" cy="0" r="6" fill="#C6FF3A"/>
-    <circle cx="0" cy="40" r="6" fill="#C6FF3A"/>
-    <circle cx="40" cy="20" r="7" fill="#EDEDEF"/>
+    <circle cx="0" cy="0" r="6" fill="#00D4AA"/>
+    <circle cx="0" cy="40" r="6" fill="#00D4AA"/>
+    <circle cx="40" cy="20" r="7" fill="#E9EDF4"/>
   </g>
 </svg>

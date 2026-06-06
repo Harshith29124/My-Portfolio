@@ -13,11 +13,11 @@
 @import "@fontsource/dm-mono/latin-500.css";
 
 /* ----------------------------------------------------------------------
-   D1 "Engineered" design tokens. Dual-mode: dark (default) + light.
-   Colors are `@theme inline` so utilities resolve to runtime CSS vars,
-   letting the whole palette swap by toggling the `.dark` class on <html>.
-   One accent (lime) is shared across both modes for brand fidelity; a
-   separate text-safe accent (`accent-ink`) keeps links readable on light.
+   Design tokens. Dual-mode: dark + light. Colors are `@theme inline` so
+   utilities resolve to runtime CSS vars and the whole palette swaps by
+   toggling `.dark` on <html>. Teal (#00D4AA) is the primary accent, gold
+   (#D6A84F) the secondary, on a deep-navy (#070A12) dark canvas. `accent-ink`
+   / `gold-ink` are the text-safe variants that stay readable on light.
 ---------------------------------------------------------------------- */
 @theme inline {
   --color-canvas: var(--canvas);
@@ -31,6 +31,10 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-dim: var(--accent-dim);
+  --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-dim: var(--gold-dim);
+  --color-on-accent: var(--on-accent);
 }
 
 @theme {
@@ -50,44 +54,52 @@
 :root {
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
 
-  --canvas: #f3f4f1;
-  --surface: #fafbf8;
-  --elevated: #fdfdfb;
-  --line: rgba(17, 17, 19, 0.1);
-  --line-strong: rgba(17, 17, 19, 0.2);
-  --ink: #17181c;
-  --dim: #50525a;
-  --faint: #6e7079;
-  --accent: #c6ff3a;
-  --accent-ink: #3c6b00;
-  --accent-dim: rgba(120, 170, 20, 0.16);
+  --canvas: #f4f5f7;
+  --surface: #fbfcfd;
+  --elevated: #ffffff;
+  --line: rgba(7, 10, 18, 0.1);
+  --line-strong: rgba(7, 10, 18, 0.18);
+  --ink: #0b1220;
+  --dim: #475067;
+  --faint: #707892;
+  --accent: #00d4aa;
+  --accent-ink: #007a62;
+  --accent-dim: rgba(0, 212, 170, 0.16);
+  --gold: #b0791f;
+  --gold-ink: #946417;
+  --gold-dim: rgba(176, 121, 31, 0.14);
+  --on-accent: #062019;
 
-  --grid-line: rgba(17, 17, 19, 0.05);
+  --grid-line: rgba(7, 10, 18, 0.05);
   --veil-top: rgba(255, 255, 255, 0.2);
-  --veil-bottom: rgba(250, 251, 248, 0.94);
+  --veil-bottom: rgba(251, 252, 253, 0.94);
   --img-filter: grayscale(1) contrast(1.02) brightness(1);
-  --grain-opacity: 0.05;
+  --grain-opacity: 0.04;
 }
 
 /* Dark */
 .dark {
-  --canvas: #0a0a0b;
-  --surface: #0e0e11;
-  --elevated: #141418;
+  --canvas: #070a12;
+  --surface: #0b0f1a;
+  --elevated: #111726;
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
-  --ink: #ededef;
-  --dim: #9a9aa2;
-  --faint: #84848c;
-  --accent: #c6ff3a;
-  --accent-ink: #c6ff3a;
-  --accent-dim: rgba(198, 255, 58, 0.14);
+  --ink: #e9edf4;
+  --dim: #9aa3b4;
+  --faint: #6b7589;
+  --accent: #00d4aa;
+  --accent-ink: #00d4aa;
+  --accent-dim: rgba(0, 212, 170, 0.14);
+  --gold: #d6a84f;
+  --gold-ink: #d6a84f;
+  --gold-dim: rgba(214, 168, 79, 0.14);
+  --on-accent: #062019;
 
   --grid-line: rgba(255, 255, 255, 0.022);
-  --veil-top: rgba(10, 10, 11, 0.35);
-  --veil-bottom: rgba(14, 14, 17, 0.96);
+  --veil-top: rgba(7, 10, 18, 0.35);
+  --veil-bottom: rgba(11, 15, 26, 0.96);
   --img-filter: grayscale(1) contrast(1.15) brightness(0.62);
-  --grain-opacity: 0.035;
+  --grain-opacity: 0.03;
 }
 
 @layer base {
@@ -148,7 +160,7 @@
 
   ::selection {
     background: var(--color-accent);
-    color: #0a0a0b;
+    color: var(--on-accent);
   }
 
   :focus-visible {
@@ -199,7 +211,7 @@
     padding: 1px;
     background: radial-gradient(
       220px circle at var(--mx, 50%) var(--my, 0%),
-      rgba(198, 255, 58, 0.5),
+      color-mix(in srgb, var(--color-accent) 50%, transparent),
       transparent 60%
     );
     -webkit-mask:
@@ -215,20 +227,20 @@
     opacity: 1;
   }
 
-  /* Primary accent button: lime fill always pairs with near-black text
+  /* Primary accent button: teal fill always pairs with deep-navy text
      (in both themes), plus a tinted hover shadow + spring press. */
   .btn-accent {
     background: var(--color-accent);
-    color: #0a0a0b;
-    box-shadow: 0 10px 30px -16px rgba(198, 255, 58, 0.5);
+    color: var(--on-accent);
+    box-shadow: 0 10px 30px -16px color-mix(in srgb, var(--color-accent) 55%, transparent);
     transition:
       transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
       box-shadow 0.3s ease,
       filter 0.2s ease;
   }
   .btn-accent:hover {
-    box-shadow: 0 16px 44px -14px rgba(198, 255, 58, 0.6);
-    filter: brightness(1.04);
+    box-shadow: 0 16px 44px -14px color-mix(in srgb, var(--color-accent) 65%, transparent);
+    filter: brightness(1.05);
   }
   .btn-accent:active {
     transform: translateY(1px) scale(0.99);
@@ -327,7 +339,7 @@
     width: 1.65rem;
     height: 1.65rem;
     border-radius: 999px;
-    background: rgba(10, 10, 11, 0.12);
+    background: rgba(6, 32, 25, 0.16);
     transition: transform 0.45s var(--ease);
   }
   .btn-accent:hover .cta-icon {

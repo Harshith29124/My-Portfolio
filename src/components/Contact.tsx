@@ -19,7 +19,7 @@ export default function Contact() {
         className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[720px] -translate-x-1/2 opacity-70 blur-3xl"
         style={{
           background:
-            "radial-gradient(ellipse, rgba(198,255,58,0.07), transparent 70%)",
+            "radial-gradient(ellipse, rgba(0,212,170,0.08), transparent 70%)",
         }}
       />
       <div className="shell relative py-24 md:py-36">
