@@ -10,3 +10,4 @@ npm-debug.log*
 # Installed agent skills (local tooling, not app code)
 .agents
 .claude
+.skillkit
