@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import NodeGlyph from "./NodeGlyph";
+import { useTilt } from "../lib/useTilt";
 
 type Tile = {
   title: string;
@@ -47,8 +48,9 @@ const tiles: Tile[] = [
 
 function TileCard({ tile, index }: { tile: Tile; index: number }) {
   const reduce = useReducedMotion();
+  const { ref, onMouseMove, onMouseLeave, rotateX, rotateY } = useTilt(6);
   return (
-    <motion.article
+    <motion.div
       initial={reduce ? false : { opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
@@ -57,28 +59,37 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
         delay: (index % 3) * 0.08,
         ease: [0.32, 0.72, 0, 1],
       }}
-      className={`group glass-card relative flex min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 hover:-translate-y-1.5 ${
-        tile.feature ? "justify-between" : "justify-start"
-      } ${tile.span}`}
+      className={`${tile.span} [perspective:1100px]`}
     >
-      {tile.feature && (
-        <div className="flex justify-end">
-          <NodeGlyph
-            seed={tile.title}
-            className="text-faint transition-colors duration-500 group-hover:text-dim"
-          />
-        </div>
-      )}
+      <motion.article
+        ref={ref}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        whileTap={{ scale: 0.99 }}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className={`group glass-card spotlight relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 ${
+          tile.feature ? "justify-between" : "justify-start"
+        }`}
+      >
+        {tile.feature && (
+          <div className="flex justify-end">
+            <NodeGlyph
+              seed={tile.title}
+              className="text-faint transition-colors duration-500 group-hover:text-accent-ink"
+            />
+          </div>
+        )}
 
-      <div className="relative">
-        <h3 className="text-lg font-medium tracking-tight text-ink transition-colors duration-500 group-hover:text-accent-ink">
-          {tile.title}
-        </h3>
-        <p className="mt-2 max-w-md text-[15px] leading-relaxed text-dim">
-          {tile.body}
-        </p>
-      </div>
-    </motion.article>
+        <div className="relative" style={{ transform: "translateZ(20px)" }}>
+          <h3 className="text-lg font-semibold tracking-tight text-ink transition-colors duration-500 group-hover:text-accent-ink">
+            {tile.title}
+          </h3>
+          <p className="mt-2 max-w-md text-[15px] leading-relaxed text-dim">
+            {tile.body}
+          </p>
+        </div>
+      </motion.article>
+    </motion.div>
   );
 }
 

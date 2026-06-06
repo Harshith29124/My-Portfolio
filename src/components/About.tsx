@@ -12,7 +12,7 @@ export default function About() {
       <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         {/* Portrait + facts */}
         <Reveal>
-          <div className="lg:sticky lg:top-28">
+          <div className="flex flex-col items-center lg:sticky lg:top-28 lg:items-start">
             <div className="group glass-card relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)]">
               <img
                 src="/profile.jpg"

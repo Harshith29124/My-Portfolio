@@ -14,6 +14,11 @@ export default function WorkRow({ project }: { project: Project }) {
 
   return (
     <article className="group relative border-t border-line">
+      {/* soft glass panel fades in behind the row on hover/focus */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-[-0.85rem] inset-y-1 rounded-[var(--radius-lg)] border border-transparent bg-elevated/0 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:border-line group-hover:bg-elevated/45 group-focus-within:border-line group-focus-within:bg-elevated/45"
+      />
       {hasCaseStudy && (
         <Link
           to={`/work/${slug}`}
