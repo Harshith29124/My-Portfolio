@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
-/* Self-hosted fonts (subset, swap). Poppins carries the brand voice now;
-   JetBrains Mono stays for the small technical labels (signature detail). */
-@import "@fontsource/poppins/400.css";
-@import "@fontsource/poppins/500.css";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
+/* Self-hosted fonts. Geist carries the brand voice (sharper, more
+   "engineered" than Poppins); JetBrains Mono stays for the small technical
+   labels (signature detail). */
+@import "@fontsource-variable/geist";
 @import "@fontsource-variable/jetbrains-mono";
 
 /* ----------------------------------------------------------------------
@@ -30,7 +28,7 @@
 }
 
 @theme {
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
 
   /* iOS-style soft radii. One scale, applied everywhere (shape lock). */

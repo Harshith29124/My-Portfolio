@@ -13,21 +13,24 @@ export default function About() {
         {/* Portrait + facts */}
         <Reveal>
           <div className="lg:sticky lg:top-28">
-            {/* TODO: replace with a real photo of Harshith (square, ~800x800).
-                Drop the file in /public and swap this monogram block for an <img>. */}
-            <div className="elev relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-mono text-7xl font-semibold text-accent-ink/90">H</span>
-              </div>
+            <div className="group elev relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated">
+              <img
+                src="/profile.jpg"
+                alt="Harshith Nayaka L"
+                width={800}
+                height={800}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0"
+              />
               <div
-                className="absolute inset-0 opacity-60"
+                className="pointer-events-none absolute inset-0 opacity-60"
                 style={{
                   backgroundImage:
                     "radial-gradient(circle at 30% 20%, rgba(198,255,58,0.10), transparent 55%)",
                 }}
                 aria-hidden
               />
-              <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.18em] text-faint">
+              <div className="pointer-events-none absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.18em] text-faint mix-blend-difference">
                 harshith
               </div>
             </div>
