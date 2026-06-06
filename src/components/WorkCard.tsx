@@ -36,6 +36,7 @@ export default function WorkCard({
         ref={ref}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
+        whileTap={{ scale: 0.985 }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="bezel-shell spotlight elev h-full"
       >
@@ -55,7 +56,7 @@ export default function WorkCard({
               )}
               <NodeGlyph
                 seed={slug}
-                className="text-faint transition-colors duration-500 group-hover:text-dim"
+                className="text-faint transition-colors duration-500 group-hover:text-dim group-active:text-accent-ink"
               />
             </div>
           </div>
@@ -90,7 +91,7 @@ export default function WorkCard({
                 <ArrowRight
                   weight="bold"
                   size={15}
-                  className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
+                  className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-active:translate-x-1"
                 />
               </Link>
             )}

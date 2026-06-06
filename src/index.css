@@ -313,6 +313,8 @@
     overflow: hidden;
   }
   .group:hover > .bezel-shell,
+  .group:active > .bezel-shell,
+  .group:focus-within > .bezel-shell,
   .bezel-shell.is-hover {
     border-color: var(--color-line-strong);
   }
@@ -350,7 +352,8 @@
       border-color 0.3s var(--ease),
       background-color 0.3s var(--ease);
   }
-  .stack-pill:hover {
+  .stack-pill:hover,
+  .stack-pill:active {
     transform: translateY(-3px) scale(1.03);
     border-color: var(--color-accent);
     background: color-mix(in oklab, var(--color-accent-dim) 60%, var(--color-elevated));
@@ -358,7 +361,8 @@
   .stack-pill img {
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .stack-pill:hover img {
+  .stack-pill:hover img,
+  .stack-pill:active img {
     transform: scale(1.12) rotate(-4deg);
   }
   @media (prefers-reduced-motion: reduce) {

@@ -22,6 +22,7 @@ export default function About() {
                 ref={ref}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                whileTap={{ scale: 0.98 }}
                 style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                 className="group elev relative aspect-square w-full overflow-hidden rounded-[var(--radius-lg)] border border-line bg-elevated"
               >
@@ -31,7 +32,7 @@ export default function About() {
                   width={800}
                   height={800}
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
                 <div
                   className="pointer-events-none absolute inset-0 opacity-60"

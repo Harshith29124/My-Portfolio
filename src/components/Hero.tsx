@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useLenis } from "lenis/react";
-import { ArrowDown, ArrowUpRight, FlowArrow } from "@phosphor-icons/react";
-import NodeGraph from "./NodeGraph";
+import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
+import PipelineRun from "./PipelineRun";
 import Magnetic from "./Magnetic";
-
-// The five stages every pipeline in the work shares. The hero panel narrates a
-// brief travelling through them, so the visual states what I actually build.
-const STAGES = ["Capture", "Understand", "Compose", "Verify", "Publish"] as const;
 
 // Headline split so each word can rise on its own beat (staggered reveal).
 const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
@@ -15,19 +10,8 @@ const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
 export default function Hero() {
   const reduce = useReducedMotion();
   const lenis = useLenis();
-  const [active, setActive] = useState(0);
 
   const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
-
-  // Advance the active stage so the panel reads as a live run, not decoration.
-  useEffect(() => {
-    if (reduce) return;
-    const id = window.setInterval(
-      () => setActive((a) => (a + 1) % STAGES.length),
-      1500,
-    );
-    return () => window.clearInterval(id);
-  }, [reduce]);
 
   const rise = (delay: number) =>
     reduce
@@ -127,87 +111,10 @@ export default function Hero() {
           <motion.div
             animate={reduce ? {} : { y: [0, -10, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            className="bezel-shell elev-soft relative h-[320px] w-full sm:h-[380px] lg:h-[500px]"
+            className="bezel-shell elev-soft relative h-[360px] w-full sm:h-[420px] lg:h-[500px]"
           >
-            <div className="bezel-core flex h-full flex-col">
-              {/* console header: states what this is + that it is running */}
-              <div className="flex items-center justify-between border-b border-line px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <span className="grid h-6 w-6 place-items-center rounded-[8px] bg-accent-dim text-accent-ink">
-                    <FlowArrow weight="bold" size={14} />
-                  </span>
-                  <span className="font-mono text-[12px] tracking-tight text-ink">
-                    AI pipeline
-                  </span>
-                </div>
-                <span className="inline-flex items-center gap-2 rounded-[6px] border border-line bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-dim">
-                  <span className="flex h-3 items-end gap-[2px]" aria-hidden>
-                    {[0, 1, 2].map((i) => (
-                      <motion.span
-                        key={i}
-                        className="w-[2px] rounded-[1px] bg-accent"
-                        animate={
-                          reduce ? { height: 7 } : { height: [4, 12, 6, 10, 4] }
-                        }
-                        transition={{
-                          duration: 1.1,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: i * 0.18,
-                        }}
-                      />
-                    ))}
-                  </span>
-                  Live
-                </span>
-              </div>
-
-              {/* the flowing graph */}
-              <div className="relative flex-1 overflow-hidden">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(120% 90% at 100% 0%, rgba(198,255,58,0.06), transparent 55%)",
-                  }}
-                />
-                <NodeGraph />
-                {/* current-stage readout: narrates the run in plain words */}
-                <div className="pointer-events-none absolute left-4 top-3 z-10 font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
-                  run{" "}
-                  <span className="text-accent-ink transition-colors duration-300">
-                    {STAGES[active].toLowerCase()}
-                  </span>
-                </div>
-              </div>
-
-              {/* stage rail: the active stage lights up in sequence */}
-              <div className="flex items-center justify-between gap-1 border-t border-line px-3 py-3">
-                {STAGES.map((s, i) => {
-                  const on = i === active;
-                  return (
-                    <div
-                      key={s}
-                      className="flex flex-1 flex-col items-center gap-1.5"
-                    >
-                      <span
-                        className={`h-1 w-full rounded-full transition-colors duration-500 ${
-                          on ? "bg-accent" : "bg-line-strong"
-                        }`}
-                        aria-hidden
-                      />
-                      <span
-                        className={`font-mono text-[8.5px] uppercase tracking-[0.1em] transition-colors duration-500 sm:text-[9.5px] ${
-                          on ? "text-accent-ink" : "text-faint"
-                        }`}
-                      >
-                        {s}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="bezel-core h-full">
+              <PipelineRun />
             </div>
           </motion.div>
         </motion.div>
