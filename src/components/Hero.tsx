@@ -23,8 +23,8 @@ export default function Hero() {
   const wordDelay = (i: number) => 0.15 + i * 0.04;
 
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden pb-10 pt-28 md:pt-32">
-      <div className="shell relative z-10 flex flex-1 flex-col justify-center">
+    <section className="relative flex min-h-[100svh] flex-col overflow-hidden pb-10 pt-32 md:pt-40">
+      <div className="shell relative z-10">
         {/* Eyebrow: a substantial role line + an availability marker.
             Real type weight, not slim wide-tracked caps. */}
         <motion.div
@@ -119,7 +119,7 @@ export default function Hero() {
         onClick={() => goTo("work")}
         aria-label="Scroll to work"
         {...rise(0.9)}
-        className="relative z-10 mx-auto mt-12 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
+        className="relative z-10 mx-auto mt-auto pt-16 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
       >
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em]">
           Scroll
