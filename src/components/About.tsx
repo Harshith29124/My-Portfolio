@@ -48,11 +48,8 @@ export default function About() {
           <div className="max-w-xl">
             {/* Borderless status line — a live signal, not a badge */}
             <span className="inline-flex items-center gap-2.5">
-              <span className="relative flex h-2 w-2" aria-hidden>
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-              </span>
-              <span className="text-[13px] font-medium tracking-tight text-dim">
+              <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
+              <span className="text-[15px] font-semibold tracking-tight text-accent-ink">
                 Available for freelance work
               </span>
             </span>

@@ -35,13 +35,8 @@ export default function Hero() {
             AI Workflow Engineer
           </span>
           <span className="h-4 w-px bg-line-strong" aria-hidden />
-          <span className="inline-flex items-center gap-2 text-[15px] font-medium text-accent-ink">
-            <span className="relative flex h-2 w-2" aria-hidden>
-              {!reduce && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
-              )}
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-            </span>
+          <span className="inline-flex items-center gap-2 text-[15px] font-semibold text-accent-ink">
+            <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
             Available for freelance work
           </span>
         </motion.div>
