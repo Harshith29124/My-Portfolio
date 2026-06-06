@@ -222,6 +222,8 @@
      canvas so it reads in dark mode too) + a diagonal light streak + bright rim
      + real backdrop blur so it frosts whatever sits behind it. */
   .glass-card {
+    position: relative;
+    overflow: hidden;
     background:
       linear-gradient(
         135deg,
@@ -242,6 +244,24 @@
       transform 0.4s var(--ease),
       border-color 0.4s var(--ease),
       box-shadow 0.4s var(--ease);
+  }
+  /* liquid light streak that sweeps across on hover */
+  .glass-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 36%,
+      rgba(255, 255, 255, 0.16) 48%,
+      transparent 62%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.9s var(--ease);
+  }
+  .glass-card:hover::after {
+    transform: translateX(130%);
   }
   .glass-card:hover {
     border-color: var(--color-glass-border);

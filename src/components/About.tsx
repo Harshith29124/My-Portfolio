@@ -9,10 +9,10 @@ const facts = [
 export default function About() {
   return (
     <section id="about" className="shell scroll-mt-28 py-20 md:py-28">
-      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-10 lg:gap-16">
         {/* Portrait + facts */}
         <Reveal>
-          <div className="flex flex-col items-center lg:sticky lg:top-28 lg:items-start">
+          <div className="flex flex-col items-center md:sticky md:top-28 md:items-start">
             <div className="group glass-card relative aspect-square w-full max-w-xs overflow-hidden rounded-[var(--radius-lg)]">
               <img
                 src="/profile.jpg"
