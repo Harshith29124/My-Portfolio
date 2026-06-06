@@ -70,13 +70,11 @@ export default function TechMarquee() {
       transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
     >
       <div className="shell mb-7 flex items-center gap-2.5">
-        <span className="relative flex h-2 w-2" aria-hidden>
-          <motion.span
-            className="absolute inline-flex h-full w-full rounded-full bg-accent"
-            animate={reduce ? {} : { scale: [1, 2.4], opacity: [0.6, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
-          />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+        <span
+          className="grid h-3.5 w-3.5 place-items-center rounded-[4px] border border-accent/30 bg-accent/5"
+          aria-hidden
+        >
+          <span className="h-1.5 w-1.5 rounded-[1.5px] bg-accent" />
         </span>
         <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-faint">
           The stack behind the work

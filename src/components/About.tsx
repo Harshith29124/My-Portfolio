@@ -54,9 +54,16 @@ export default function About() {
         {/* Bio */}
         <Reveal delay={0.08}>
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-dim px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-accent-ink">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-              Open to select freelance projects
+            <span className="inline-flex items-center gap-2.5 rounded-[8px] border border-line bg-elevated px-3 py-1.5 elev-soft">
+              <span
+                className="grid h-3.5 w-3.5 place-items-center rounded-[4px] border border-accent/30 bg-accent/5"
+                aria-hidden
+              >
+                <span className="h-1.5 w-1.5 rounded-[1.5px] bg-accent" />
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">
+                Open to select freelance projects
+              </span>
             </span>
 
             <h2 className="mt-6 text-3xl font-semibold tracking-tight md:text-4xl">
