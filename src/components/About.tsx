@@ -22,8 +22,11 @@ export default function About() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
               />
-              <div className="pointer-events-none absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.18em] text-faint mix-blend-difference">
-                harshith
+              <div
+                className="pointer-events-none absolute bottom-3 left-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-white"
+                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.65)" }}
+              >
+                Harshith Nayaka L
               </div>
             </div>
 
