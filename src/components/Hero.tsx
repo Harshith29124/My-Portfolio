@@ -52,14 +52,6 @@ export default function Hero() {
       <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
         {/* Left: message */}
         <div className="relative z-10 max-w-xl">
-          <motion.p
-            {...rise(0)}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-elevated/60 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.2em] text-accent-ink"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-            AI Engineer
-          </motion.p>
-
           <motion.h1
             {...rise(0.08)}
             className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl"
