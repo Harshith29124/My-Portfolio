@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <script>
       // Set theme before first paint (no flash). Stored choice wins,
-      // otherwise default to dark (the "serious AI systems" first impression).
+      // otherwise follow the OS preference.
       (function () {
         try {
           var t = localStorage.getItem("theme");
-          if (t !== "light") document.documentElement.classList.add("dark");
+          if (!t)
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          if (t === "dark") document.documentElement.classList.add("dark");
         } catch (e) {
           document.documentElement.classList.add("dark");
         }
