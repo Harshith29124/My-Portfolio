@@ -15,9 +15,9 @@
 /* ----------------------------------------------------------------------
    Design tokens. Dual-mode: dark + light. Colors are `@theme inline` so
    utilities resolve to runtime CSS vars and the whole palette swaps by
-   toggling `.dark` on <html>. Teal (#00D4AA) is the primary accent, gold
-   (#D6A84F) the secondary, on a deep-navy (#070A12) dark canvas. `accent-ink`
-   / `gold-ink` are the text-safe variants that stay readable on light.
+   toggling `.dark` on <html>. Warm editorial palette: terracotta (#B85C38)
+   accent, deep-rust (#7A321F) button, gold (#C89B4A) premium highlight, on a
+   cream (#FFF4E6) canvas. `accent-ink` / `gold-ink` are the text-safe variants.
 ---------------------------------------------------------------------- */
 @theme inline {
   --color-canvas: var(--canvas);
@@ -34,6 +34,8 @@
   --color-gold: var(--gold);
   --color-gold-ink: var(--gold-ink);
   --color-gold-dim: var(--gold-dim);
+  --color-btn: var(--btn);
+  --color-on-btn: var(--on-btn);
   --color-on-accent: var(--on-accent);
 }
 
@@ -50,56 +52,60 @@
   --radius-pill: 999px;
 }
 
-/* Light (default if no .dark) */
+/* Light (warm editorial — the primary identity) */
 :root {
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
 
-  --canvas: #f4f5f7;
-  --surface: #fbfcfd;
-  --elevated: #ffffff;
-  --line: rgba(7, 10, 18, 0.1);
-  --line-strong: rgba(7, 10, 18, 0.18);
-  --ink: #0b1220;
-  --dim: #475067;
-  --faint: #707892;
-  --accent: #00d4aa;
-  --accent-ink: #007a62;
-  --accent-dim: rgba(0, 212, 170, 0.16);
-  --gold: #b0791f;
-  --gold-ink: #946417;
-  --gold-dim: rgba(176, 121, 31, 0.14);
-  --on-accent: #062019;
+  --canvas: #fff4e6;
+  --surface: #fff9f0;
+  --elevated: #fffdf8;
+  --line: rgba(42, 24, 16, 0.12);
+  --line-strong: rgba(42, 24, 16, 0.22);
+  --ink: #2a1810;
+  --dim: #6e4d3a;
+  --faint: #997a64;
+  --accent: #b85c38;
+  --accent-ink: #9a4527;
+  --accent-dim: rgba(184, 92, 56, 0.14);
+  --gold: #c89b4a;
+  --gold-ink: #8c6a23;
+  --gold-dim: rgba(200, 155, 74, 0.18);
+  --btn: #7a321f;
+  --on-btn: #fff4e6;
+  --on-accent: #fff4e6;
 
-  --grid-line: rgba(7, 10, 18, 0.05);
-  --veil-top: rgba(255, 255, 255, 0.2);
-  --veil-bottom: rgba(251, 252, 253, 0.94);
-  --img-filter: grayscale(1) contrast(1.02) brightness(1);
-  --grain-opacity: 0.04;
+  --grid-line: rgba(42, 24, 16, 0.04);
+  --veil-top: rgba(255, 244, 230, 0.2);
+  --veil-bottom: rgba(255, 244, 230, 0.94);
+  --img-filter: saturate(1.04) contrast(1.02);
+  --grain-opacity: 0.045;
 }
 
-/* Dark */
+/* Dark (warm espresso counterpart) */
 .dark {
-  --canvas: #070a12;
-  --surface: #0b0f1a;
-  --elevated: #111726;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --ink: #e9edf4;
-  --dim: #9aa3b4;
-  --faint: #6b7589;
-  --accent: #00d4aa;
-  --accent-ink: #00d4aa;
-  --accent-dim: rgba(0, 212, 170, 0.14);
-  --gold: #d6a84f;
-  --gold-ink: #d6a84f;
-  --gold-dim: rgba(214, 168, 79, 0.14);
-  --on-accent: #062019;
+  --canvas: #1a0f0a;
+  --surface: #231610;
+  --elevated: #2d1d14;
+  --line: rgba(255, 244, 230, 0.1);
+  --line-strong: rgba(255, 244, 230, 0.2);
+  --ink: #f6ecdd;
+  --dim: #c3a892;
+  --faint: #93785f;
+  --accent: #d2744a;
+  --accent-ink: #df8055;
+  --accent-dim: rgba(210, 116, 74, 0.16);
+  --gold: #d4ab5e;
+  --gold-ink: #d4ab5e;
+  --gold-dim: rgba(212, 171, 94, 0.16);
+  --btn: #b85c38;
+  --on-btn: #fff4e6;
+  --on-accent: #1a0f0a;
 
-  --grid-line: rgba(255, 255, 255, 0.022);
-  --veil-top: rgba(7, 10, 18, 0.35);
-  --veil-bottom: rgba(11, 15, 26, 0.96);
-  --img-filter: grayscale(1) contrast(1.15) brightness(0.62);
-  --grain-opacity: 0.03;
+  --grid-line: rgba(255, 244, 230, 0.025);
+  --veil-top: rgba(26, 15, 10, 0.35);
+  --veil-bottom: rgba(35, 22, 16, 0.96);
+  --img-filter: saturate(1.02) contrast(1.05) brightness(0.92);
+  --grain-opacity: 0.035;
 }
 
 @layer base {
@@ -227,20 +233,20 @@
     opacity: 1;
   }
 
-  /* Primary accent button: teal fill always pairs with deep-navy text
-     (in both themes), plus a tinted hover shadow + spring press. */
+  /* Primary button: deep-rust fill with cream text in both themes, plus a
+     tinted hover shadow + spring press. */
   .btn-accent {
-    background: var(--color-accent);
-    color: var(--on-accent);
-    box-shadow: 0 10px 30px -16px color-mix(in srgb, var(--color-accent) 55%, transparent);
+    background: var(--color-btn);
+    color: var(--color-on-btn);
+    box-shadow: 0 10px 30px -16px color-mix(in srgb, var(--color-btn) 60%, transparent);
     transition:
       transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
       box-shadow 0.3s ease,
       filter 0.2s ease;
   }
   .btn-accent:hover {
-    box-shadow: 0 16px 44px -14px color-mix(in srgb, var(--color-accent) 65%, transparent);
-    filter: brightness(1.05);
+    box-shadow: 0 16px 44px -14px color-mix(in srgb, var(--color-btn) 70%, transparent);
+    filter: brightness(1.07);
   }
   .btn-accent:active {
     transform: translateY(1px) scale(0.99);
@@ -339,7 +345,7 @@
     width: 1.65rem;
     height: 1.65rem;
     border-radius: 999px;
-    background: rgba(6, 32, 25, 0.16);
+    background: rgba(42, 24, 16, 0.2);
     transition: transform 0.45s var(--ease);
   }
   .btn-accent:hover .cta-icon {

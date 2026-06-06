@@ -24,46 +24,25 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[100dvh] items-center overflow-hidden pt-28 pb-24">
-      {/* Ambient: teal primary glow (breathing) + a quiet gold counter-glow */}
-      <motion.div
-        aria-hidden
-        animate={reduce ? {} : { opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -right-40 top-[12%] h-[620px] w-[620px] rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,212,170,0.14), transparent 65%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 bottom-[-10%] h-[520px] w-[520px] rounded-full opacity-70 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(214,168,79,0.08), transparent 65%)",
-        }}
-      />
-
       <div className="shell relative z-10">
-        {/* Eyebrow: availability (teal) + role, separated by a gold mark */}
+        {/* Eyebrow: a substantial role line + an availability marker.
+            Real type weight, not slim wide-tracked caps. */}
         <motion.div
           {...rise(0)}
-          className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-2"
+          className="mb-9 flex flex-wrap items-center gap-x-4 gap-y-2"
         >
-          <span className="inline-flex items-center gap-2.5">
+          <span className="text-base font-semibold tracking-tight text-ink">
+            AI Workflow Engineer
+          </span>
+          <span className="h-4 w-px bg-line-strong" aria-hidden />
+          <span className="inline-flex items-center gap-2 text-[15px] font-medium text-accent-ink">
             <span className="relative flex h-2 w-2" aria-hidden>
               {!reduce && (
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
               )}
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-            <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-dim">
-              Available for freelance work
-            </span>
-          </span>
-          <span className="h-1 w-1 rounded-full bg-gold" aria-hidden />
-          <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-faint">
-            AI Workflow Engineer
+            Available for freelance work
           </span>
         </motion.div>
 
