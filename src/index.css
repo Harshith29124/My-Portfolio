@@ -15,9 +15,10 @@
 /* ----------------------------------------------------------------------
    Design tokens. Dual-mode: dark + light. Colors are `@theme inline` so
    utilities resolve to runtime CSS vars and the whole palette swaps by
-   toggling `.dark` on <html>. Warm editorial palette: terracotta (#B85C38)
-   accent, deep-rust (#7A321F) button, gold (#C89B4A) premium highlight, on a
-   cream (#FFF4E6) canvas. `accent-ink` / `gold-ink` are the text-safe variants.
+   toggling `.dark` on <html>. iOS-neutral palette: terracotta accent + gold
+   premium highlight + deep-rust button, over a cool light-gray (light) /
+   near-black (dark) canvas with liquid-glass surfaces. `accent-ink`/`gold-ink`
+   are the text-safe variants; `glass` is the translucent material.
 ---------------------------------------------------------------------- */
 @theme inline {
   --color-canvas: var(--canvas);
@@ -37,6 +38,8 @@
   --color-btn: var(--btn);
   --color-on-btn: var(--on-btn);
   --color-on-accent: var(--on-accent);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
 }
 
 @theme {
@@ -52,60 +55,64 @@
   --radius-pill: 999px;
 }
 
-/* Light (warm editorial — the primary identity) */
+/* Light (clean iOS neutral — terracotta accent on cool light gray) */
 :root {
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
 
-  --canvas: #fff4e6;
-  --surface: #fff9f0;
-  --elevated: #fffdf8;
-  --line: rgba(42, 24, 16, 0.12);
-  --line-strong: rgba(42, 24, 16, 0.22);
-  --ink: #2a1810;
-  --dim: #6e4d3a;
-  --faint: #997a64;
+  --canvas: #f3f4f6;
+  --surface: #fafbfc;
+  --elevated: #ffffff;
+  --line: rgba(18, 20, 26, 0.1);
+  --line-strong: rgba(18, 20, 26, 0.18);
+  --ink: #14161c;
+  --dim: #565b67;
+  --faint: #878d9a;
   --accent: #b85c38;
   --accent-ink: #9a4527;
-  --accent-dim: rgba(184, 92, 56, 0.14);
-  --gold: #c89b4a;
-  --gold-ink: #8c6a23;
-  --gold-dim: rgba(200, 155, 74, 0.18);
+  --accent-dim: rgba(184, 92, 56, 0.12);
+  --gold: #a9781f;
+  --gold-ink: #8c6217;
+  --gold-dim: rgba(169, 120, 31, 0.14);
   --btn: #7a321f;
-  --on-btn: #fff4e6;
-  --on-accent: #fff4e6;
+  --on-btn: #ffffff;
+  --on-accent: #ffffff;
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.7);
 
-  --grid-line: rgba(42, 24, 16, 0.04);
-  --veil-top: rgba(255, 244, 230, 0.2);
-  --veil-bottom: rgba(255, 244, 230, 0.94);
-  --img-filter: saturate(1.04) contrast(1.02);
-  --grain-opacity: 0.045;
+  --grid-line: rgba(18, 20, 26, 0.035);
+  --veil-top: rgba(243, 244, 246, 0.2);
+  --veil-bottom: rgba(243, 244, 246, 0.94);
+  --img-filter: saturate(1.03) contrast(1.02);
+  --grain-opacity: 0.025;
 }
 
-/* Dark (warm espresso counterpart) */
+/* Dark (clean iOS near-black — vibrant terracotta over true dark) */
 .dark {
-  --canvas: #1a0f0a;
-  --surface: #231610;
-  --elevated: #2d1d14;
-  --line: rgba(255, 244, 230, 0.1);
-  --line-strong: rgba(255, 244, 230, 0.2);
-  --ink: #f6ecdd;
-  --dim: #c3a892;
-  --faint: #93785f;
-  --accent: #d2744a;
-  --accent-ink: #df8055;
-  --accent-dim: rgba(210, 116, 74, 0.16);
+  --canvas: #0a0b0f;
+  --surface: #14151b;
+  --elevated: #1c1e26;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --ink: #eceef3;
+  --dim: #a0a6b3;
+  --faint: #6c7280;
+  --accent: #e08658;
+  --accent-ink: #e89069;
+  --accent-dim: rgba(224, 134, 88, 0.16);
   --gold: #d4ab5e;
   --gold-ink: #d4ab5e;
   --gold-dim: rgba(212, 171, 94, 0.16);
-  --btn: #b85c38;
-  --on-btn: #fff4e6;
-  --on-accent: #1a0f0a;
+  --btn: #c2502f;
+  --on-btn: #ffffff;
+  --on-accent: #0a0b0f;
+  --glass: rgba(28, 30, 38, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.12);
 
-  --grid-line: rgba(255, 244, 230, 0.025);
-  --veil-top: rgba(26, 15, 10, 0.35);
-  --veil-bottom: rgba(35, 22, 16, 0.96);
-  --img-filter: saturate(1.02) contrast(1.05) brightness(0.92);
-  --grain-opacity: 0.035;
+  --grid-line: rgba(255, 255, 255, 0.025);
+  --veil-top: rgba(10, 11, 15, 0.35);
+  --veil-bottom: rgba(20, 21, 27, 0.96);
+  --img-filter: saturate(1.02) contrast(1.04) brightness(0.94);
+  --grain-opacity: 0.022;
 }
 
 @layer base {
@@ -182,6 +189,19 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* iOS-style "liquid glass": translucent material + backdrop blur + hairline
+     highlight. Only use on FIXED/STICKY elements (nav) — backdrop-filter on
+     scrolling content tanks frame rate. */
+  .glass {
+    background: var(--color-glass);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid var(--color-glass-border);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+      0 14px 40px -18px rgba(0, 0, 0, 0.45);
   }
 
   /* Slow accent pan on the headline highlight — reads as quiet, alive sheen

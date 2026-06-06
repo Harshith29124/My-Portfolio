@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <rect width="1200" height="630" fill="#FFF4E6"/>
+  <rect width="1200" height="630" fill="#0A0B0F"/>
   <!-- faint grid -->
   <g stroke="#FFFFFF" stroke-opacity="0.04">
     <path d="M0 90 H1200 M0 180 H1200 M0 270 H1200 M0 360 H1200 M0 450 H1200 M0 540 H1200"/>
@@ -8,11 +8,11 @@
   <!-- eyebrow -->
   <text x="80" y="150" fill="#B85C38" font-family="monospace" font-size="24" letter-spacing="6">AI ENGINEER</text>
   <!-- headline -->
-  <text x="78" y="270" fill="#2A1810" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">I build AI systems that turn</text>
-  <text x="78" y="350" fill="#2A1810" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">manual work into <tspan fill="#B85C38">reliable</tspan></text>
+  <text x="78" y="270" fill="#ECEEF3" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">I build AI systems that turn</text>
+  <text x="78" y="350" fill="#ECEEF3" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">manual work into <tspan fill="#B85C38">reliable</tspan></text>
   <text x="78" y="430" fill="#B85C38" font-family="Poppins, Arial, sans-serif" font-size="68" font-weight="700">automation.</text>
   <!-- footer line -->
-  <text x="80" y="560" fill="#997A64" font-family="monospace" font-size="22">harshith  ·  LLM pipelines  ·  multi-modal  ·  production-reliable</text>
+  <text x="80" y="560" fill="#6C7280" font-family="monospace" font-size="22">harshith  ·  LLM pipelines  ·  multi-modal  ·  production-reliable</text>
   <!-- node mark -->
   <g transform="translate(1000,120)">
     <g stroke="#B85C38" stroke-width="2" opacity="0.6">
@@ -20,6 +20,6 @@
     </g>
     <circle cx="0" cy="0" r="6" fill="#B85C38"/>
     <circle cx="0" cy="40" r="6" fill="#B85C38"/>
-    <circle cx="40" cy="20" r="7" fill="#2A1810"/>
+    <circle cx="40" cy="20" r="7" fill="#ECEEF3"/>
   </g>
 </svg>
