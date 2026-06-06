@@ -26,12 +26,12 @@ export default function Contact() {
             to build it.
           </p>
 
-          <div className="glass-card mt-10 max-w-2xl rounded-[var(--radius-lg)] p-6 md:p-8">
-            <div className="flex flex-wrap items-center gap-4">
-              <Magnetic className="inline-block">
+          <div className="glass-card mt-10 w-full max-w-2xl rounded-[var(--radius-lg)] p-5 sm:p-7 md:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
+              <Magnetic className="inline-block w-full sm:w-auto">
                 <a
                   href={`mailto:${EMAIL}?subject=Project%20enquiry`}
-                  className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-2.5 pl-5 pr-2.5 text-sm font-semibold"
+                  className="btn-accent group inline-flex w-full items-center justify-center gap-2.5 rounded-full py-3 pl-5 pr-3 text-sm font-semibold sm:w-auto sm:justify-start sm:py-2.5"
                 >
                   Get in touch
                   <span className="cta-icon">
@@ -41,13 +41,13 @@ export default function Contact() {
               </Magnetic>
               <a
                 href={`mailto:${EMAIL}`}
-                className="font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink"
+                className="min-w-0 break-all font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink sm:break-normal"
               >
                 {EMAIL}
               </a>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-6">
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-5">
               {socials.map((s) => (
                 <a
                   key={s.label}
