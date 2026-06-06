@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLenis } from "lenis/react";
 import ThemeToggle from "./ThemeToggle";
 
 const sections = [
@@ -11,6 +12,7 @@ const sections = [
 export default function Nav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const lenis = useLenis();
   const [scrolled, setScrolled] = useState(false);
 
   // Toggle the nav background once the page has scrolled past the top.
@@ -39,19 +41,21 @@ export default function Nav() {
 
   const goTo = useCallback(
     (id: string) => {
-      const scroll = () => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      };
+      // Drive the scroll through Lenis so it shares the same eased, rAF-synced
+      // motion as the rest of the page (no jarring native jump).
+      const scroll = () =>
+        lenis?.scrollTo(id === "top" ? 0 : `#${id}`, {
+          offset: id === "top" ? 0 : -80,
+        });
       if (pathname === "/") {
         scroll();
       } else {
         navigate("/");
         // wait for home to mount before scrolling
-        window.setTimeout(scroll, 80);
+        window.setTimeout(scroll, 120);
       }
     },
-    [pathname, navigate],
+    [pathname, navigate, lenis],
   );
 
   return (
@@ -82,9 +86,13 @@ export default function Nav() {
             <button
               key={s.id}
               onClick={() => goTo(s.id)}
-              className="rounded px-3 py-2 font-mono text-[13px] text-dim transition-colors hover:text-ink"
+              className="group relative rounded px-3 py-2 font-mono text-[13px] text-dim transition-colors hover:text-ink"
             >
               {s.label}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-x-100"
+              />
             </button>
           ))}
           <span className="ml-1 hidden h-5 w-px bg-line sm:inline-block" aria-hidden />
