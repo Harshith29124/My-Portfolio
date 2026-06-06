@@ -48,9 +48,9 @@ export default function WorkCard({
             </span>
             <div className="flex items-center gap-3">
               {status === "in-progress" && (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent-dim px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent-ink">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-                  in progress
+                <span className="inline-flex items-center gap-1.5 rounded-[6px] border border-line bg-elevated px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
+                  <span className="h-1.5 w-1.5 rounded-[1.5px] bg-accent" aria-hidden />
+                  In progress
                 </span>
               )}
               <NodeGlyph

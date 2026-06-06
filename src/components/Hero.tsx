@@ -115,16 +115,25 @@ export default function Hero() {
                     AI pipeline
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent-dim px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent-ink">
-                  <span className="relative flex h-1.5 w-1.5" aria-hidden>
-                    <motion.span
-                      className="absolute inline-flex h-full w-full rounded-full bg-accent"
-                      animate={reduce ? {} : { scale: [1, 2.6], opacity: [0.7, 0] }}
-                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
-                    />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="inline-flex items-center gap-2 rounded-[6px] border border-line bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-dim">
+                  <span className="flex h-3 items-end gap-[2px]" aria-hidden>
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="w-[2px] rounded-[1px] bg-accent"
+                        animate={
+                          reduce ? { height: 7 } : { height: [4, 12, 6, 10, 4] }
+                        }
+                        transition={{
+                          duration: 1.1,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.18,
+                        }}
+                      />
+                    ))}
                   </span>
-                  live
+                  Live
                 </span>
               </div>
 

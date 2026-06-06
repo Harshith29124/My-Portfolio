@@ -230,11 +230,6 @@
   .marquee-group:hover .marquee-track {
     animation-play-state: paused;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
-    }
-  }
 
   /* Duotone wash for atmospheric imagery (filter swaps per theme) */
   .img-wash {

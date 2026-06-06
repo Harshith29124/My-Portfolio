@@ -43,7 +43,9 @@ export default function NodeGraph() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Animations are forced on site-wide (see MotionConfig in main.tsx), so the
+    // signature pipeline always runs rather than honoring the OS reduce setting.
+    const reduce = false;
 
     let nodes: Node[] = [];
     let edges: Edge[] = [];
