@@ -25,7 +25,6 @@ export const projects: Project[] = [
     tags: ["LLM orchestration", "Structured output", "QA gates", "Cost tiering"],
     links: [],
     hasCaseStudy: true,
-    status: "in-progress",
   },
   {
     slug: "craftconnect",
@@ -34,7 +33,7 @@ export const projects: Project[] = [
     outcome:
       "A multi-modal assistant that lets artisans run an online storefront by talking and showing, not typing.",
     tags: ["Voice + Vision", "Gemini", "Google Cloud", "Product lead"],
-    links: [{ label: "GitHub", href: GITHUB }],
+    links: [{ label: "GitHub", href: "https://github.com/Harshith29124/craftconnect" }],
     hasCaseStudy: true,
   },
   {
@@ -44,8 +43,10 @@ export const projects: Project[] = [
     outcome:
       "A deployed chat app on Llama 3.1 8B that keeps the API token server-side behind a serverless proxy.",
     tags: ["Llama 3.1 8B", "Hugging Face", "Serverless proxy"],
-    links: [{ label: "GitHub", href: GITHUB }],
-    hasCaseStudy: false,
+    links: [
+      { label: "GitHub", href: "https://github.com/Harshith29124/CUSTOM-GPT" },
+    ],
+    hasCaseStudy: true,
   },
   {
     slug: "blogspace",
@@ -59,9 +60,9 @@ export const projects: Project[] = [
         label: "Live site",
         href: "https://tangerine-cupcake-145674.netlify.app/login",
       },
-      { label: "GitHub", href: GITHUB },
+      { label: "GitHub", href: "https://github.com/Harshith29124/blogspace-internship" },
     ],
-    hasCaseStudy: false,
+    hasCaseStudy: true,
   },
   {
     slug: "ai-notes",
@@ -70,8 +71,8 @@ export const projects: Project[] = [
     outcome:
       "A notes app running a local LLM through Ollama, so inference never leaves the machine.",
     tags: ["DeepSeek R1", "Ollama", "Local/self-hosted"],
-    links: [{ label: "GitHub", href: GITHUB }],
-    hasCaseStudy: false,
+    links: [{ label: "GitHub", href: "https://github.com/Harshith29124/AI-Notes-App" }],
+    hasCaseStudy: true,
   },
 ];
 
