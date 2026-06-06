@@ -26,39 +26,41 @@ export default function Contact() {
             to build it.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Magnetic className="inline-block">
+          <div className="glass-card mt-10 max-w-2xl rounded-[var(--radius-lg)] p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-4">
+              <Magnetic className="inline-block">
+                <a
+                  href={`mailto:${EMAIL}?subject=Project%20enquiry`}
+                  className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-2.5 pl-5 pr-2.5 text-sm font-semibold"
+                >
+                  Get in touch
+                  <span className="cta-icon">
+                    <EnvelopeSimple weight="bold" size={14} />
+                  </span>
+                </a>
+              </Magnetic>
               <a
-                href={`mailto:${EMAIL}?subject=Project%20enquiry`}
-                className="btn-accent group inline-flex items-center gap-2.5 rounded-full py-2.5 pl-5 pr-2.5 text-sm font-semibold"
+                href={`mailto:${EMAIL}`}
+                className="font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink"
               >
-                Get in touch
-                <span className="cta-icon">
-                  <EnvelopeSimple weight="bold" size={14} />
-                </span>
+                {EMAIL}
               </a>
-            </Magnetic>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink"
-            >
-              {EMAIL}
-            </a>
-          </div>
+            </div>
 
-          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-8">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-accent-ink"
-              >
-                {s.label}
-                <ArrowUpRight size={14} weight="bold" />
-              </a>
-            ))}
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-6">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-accent-ink"
+                >
+                  {s.label}
+                  <ArrowUpRight size={14} weight="bold" />
+                </a>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>

@@ -104,7 +104,7 @@ export default function Hero() {
           <Magnetic className="inline-block">
             <button
               onClick={() => goTo("contact")}
-              className="inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-accent active:translate-y-px"
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink transition-colors hover:text-accent-ink active:translate-y-px"
               style={{ touchAction: "manipulation" }}
             >
               Get in touch

@@ -57,8 +57,8 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
         delay: (index % 3) * 0.08,
         ease: [0.32, 0.72, 0, 1],
       }}
-      className={`group elev-soft relative flex min-h-[200px] flex-col overflow-hidden rounded-lg border border-line p-6 transition-[border-color,transform,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1.5 hover:border-line-strong ${
-        tile.feature ? "justify-between tile-gradient" : "justify-start bg-surface/50"
+      className={`group glass-card relative flex min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 hover:-translate-y-1.5 ${
+        tile.feature ? "justify-between" : "justify-start"
       } ${tile.span}`}
     >
       {tile.feature && (
