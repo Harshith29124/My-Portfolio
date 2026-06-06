@@ -85,7 +85,7 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
 export default function Capabilities() {
   return (
     <section id="capabilities" className="scroll-mt-28 border-t border-line bg-surface/20">
-      <div className="shell py-28 md:py-40">
+      <div className="shell py-20 md:py-28">
         <Reveal>
           <SectionHeading
             title="What I can do for you"
