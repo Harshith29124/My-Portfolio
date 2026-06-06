@@ -59,14 +59,14 @@ export default function Nav() {
         <Link
           to="/"
           onClick={() => pathname === "/" && goTo("top")}
-          className="group flex shrink-0 items-center gap-2 font-mono text-sm tracking-tight text-ink"
+          className="group flex shrink-0 items-center gap-2 font-mono text-[15px] font-semibold tracking-tight text-ink"
           aria-label="Harshith, home"
         >
           <span
             aria-hidden
             className="inline-block h-2.5 w-2.5 rounded-[3px] bg-accent transition-transform duration-300 group-hover:rotate-45"
           />
-          <span className="hidden font-medium sm:inline">harshith</span>
+          <span className="hidden sm:inline">harshith</span>
         </Link>
 
         <div className="flex items-center gap-0.5">
@@ -75,9 +75,9 @@ export default function Nav() {
               key={s.id}
               onClick={() => goTo(s.id)}
               aria-current={active === s.id ? "true" : undefined}
-              className={`relative rounded-full px-2.5 py-1.5 font-mono text-[12px] transition-colors duration-300 sm:px-3 ${
+              className={`relative rounded-full px-3 py-2 text-[13px] font-semibold transition-colors duration-300 ${
                 s.id === "capabilities" ? "hidden md:inline-block" : ""
-              } ${active === s.id ? "text-ink" : "text-faint hover:text-ink"}`}
+              } ${active === s.id ? "text-accent-ink" : "text-dim hover:text-ink"}`}
               style={{ touchAction: "manipulation" }}
             >
               {active === s.id && (
