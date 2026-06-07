@@ -1,29 +1,25 @@
-import { motion } from "motion/react";
-import { useReduce } from "../lib/useReduce";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { useInView } from "../lib/useInView";
 
 type RevealProps = {
   children: ReactNode;
   delay?: number;
-  y?: number;
   className?: string;
 };
 
 /**
- * Lightweight scroll-reveal. Transform + opacity only (no filter animation) so
- * it stays GPU-composited and smooth. Honors reduced-motion (renders static).
+ * Scroll-reveal. CSS animation triggered by IntersectionObserver — works on
+ * every device/browser and is immune to reduced-motion suppression.
  */
-export default function Reveal({ children, delay = 0, y = 20, className }: RevealProps) {
-  const reduce = useReduce();
+export default function Reveal({ children, delay = 0, className }: RevealProps) {
+  const { ref, inView } = useInView<HTMLDivElement>();
   return (
-    <motion.div
-      className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay, ease: [0.32, 0.72, 0, 1] }}
+    <div
+      ref={ref}
+      className={`reveal ${inView ? "is-in" : ""} ${className ?? ""}`}
+      style={{ "--delay": `${delay}s` } as CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

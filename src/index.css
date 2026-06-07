@@ -191,6 +191,43 @@
     text-wrap: balance;
   }
 
+  /* ---- CSS-driven motion (immune to motion-lib / reduced-motion suppression;
+     runs on every device and browser). Entrances use transform+opacity only. */
+  @keyframes rise-in {
+    from { opacity: 0; transform: translate3d(0, 24px, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes word-rise {
+    from { transform: translateY(110%); }
+    to   { transform: translateY(0); }
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(6px); }
+  }
+  /* Above-the-fold: plays immediately on load, staggered via --delay */
+  .anim-rise {
+    animation: rise-in 0.7s cubic-bezier(0.32, 0.72, 0, 1) both;
+    animation-delay: var(--delay, 0s);
+  }
+  .word-rise {
+    display: inline-block;
+    animation: word-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--delay, 0s);
+  }
+  .anim-nudge {
+    animation: nudge 1.8s ease-in-out infinite;
+  }
+  /* Scroll-reveal: hidden until an IntersectionObserver adds `.is-in` */
+  .reveal {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  .reveal.is-in {
+    animation: rise-in 0.7s cubic-bezier(0.32, 0.72, 0, 1) both;
+    animation-delay: var(--delay, 0s);
+  }
+
   /* iOS-style "liquid glass": translucent material + backdrop blur + hairline
      highlight. Only use on FIXED/STICKY elements (nav) — backdrop-filter on
      scrolling content tanks frame rate. */

@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { useReduce } from "../lib/useReduce";
+import { useInView } from "../lib/useInView";
 
 /**
  * Honest stack marquee. These are the tools actually used across the work
@@ -60,15 +59,12 @@ function Row({ tools, reverse }: { tools: Tool[]; reverse?: boolean }) {
 }
 
 export default function TechMarquee() {
-  const reduce = useReduce();
+  const { ref, inView } = useInView<HTMLElement>();
   return (
-    <motion.section
+    <section
+      ref={ref}
       aria-label="Tools and models used across the work"
-      className="border-y border-line bg-surface/20 py-12"
-      initial={reduce ? false : { opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+      className={`reveal ${inView ? "is-in" : ""} border-y border-line bg-surface/20 py-12`}
     >
       <div className="shell mb-7 flex items-center gap-3">
         <span className="h-3 w-px bg-accent" aria-hidden />
@@ -80,6 +76,6 @@ export default function TechMarquee() {
         <Row tools={rowA} />
         <Row tools={rowB} reverse />
       </div>
-    </motion.section>
+    </section>
   );
 }
