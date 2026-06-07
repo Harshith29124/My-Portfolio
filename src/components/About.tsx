@@ -1,8 +1,8 @@
 import Reveal from "./Reveal";
 
 const facts = [
-  { k: "Now", v: "AI Workflow Engineer" },
-  { k: "Studying", v: "CSE, final semester" },
+  { k: "Role", v: "AI Workflow Engineer" },
+  { k: "Company", v: "DemandNXT" },
   { k: "Building since", v: "2022" },
 ];
 
@@ -63,9 +63,9 @@ export default function About() {
 
             <div className="mt-6 space-y-5 text-base leading-relaxed text-dim md:text-lg">
               <p>
-                I'm Harshith. I'm in the final semester of a Computer Science
-                degree, and I spend my working days as an AI Workflow Engineer
-                building production AI pipelines.
+                I'm Harshith — an AI Workflow Engineer at DemandNXT, where I
+                build production AI systems and pipelines for marketing and
+                creative operations.
               </p>
               <p>
                 I've been building with code since 2022. That isn't years of

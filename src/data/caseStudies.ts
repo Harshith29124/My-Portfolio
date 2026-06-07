@@ -115,7 +115,7 @@ const craftconnect: CaseStudy = {
     },
     {
       label: "Recognition",
-      body: "Built and deployed for the Gen AI Exchange Hackathon 2025, a national event with 270,000+ developers, and advanced through several rounds.",
+      body: "Built and deployed for the Gen AI Exchange Hackathon 2025, a national event with 270,000+ developers, and reached the semi-finals.",
     },
     {
       label: "Honest scope",
