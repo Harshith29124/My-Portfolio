@@ -60,8 +60,8 @@ export default function Footer() {
               {NAME}
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-dim">
-              AI Workflow Engineer building reliable, production-grade AI
-              systems and pipelines.
+              AI Workflow Engineer at DemandNXT, building reliable,
+              production-grade AI systems and pipelines.
             </p>
           </div>
 

@@ -32,7 +32,7 @@ export default function Hero() {
           className="mb-9 flex flex-wrap items-center gap-x-4 gap-y-2"
         >
           <span className="text-base font-semibold tracking-tight text-ink">
-            AI Workflow Engineer
+            AI Workflow Engineer at DemandNXT
           </span>
           <span className="h-4 w-px bg-line-strong" aria-hidden />
           <span className="inline-flex items-center gap-2 text-[15px] font-semibold text-accent-ink">
