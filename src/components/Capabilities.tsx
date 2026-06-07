@@ -1,9 +1,10 @@
+import type { CSSProperties } from "react";
 import { motion } from "motion/react";
-import { useReduce } from "../lib/useReduce";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import NodeGlyph from "./NodeGlyph";
 import { useTilt } from "../lib/useTilt";
+import { useInView } from "../lib/useInView";
 
 type Tile = {
   title: string;
@@ -48,19 +49,13 @@ const tiles: Tile[] = [
 ];
 
 function TileCard({ tile, index }: { tile: Tile; index: number }) {
-  const reduce = useReduce();
+  const { ref: viewRef, inView } = useInView<HTMLDivElement>();
   const { ref, onMouseMove, onMouseLeave, rotateX, rotateY } = useTilt(6);
   return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{
-        duration: 0.6,
-        delay: (index % 3) * 0.08,
-        ease: [0.32, 0.72, 0, 1],
-      }}
-      className={`${tile.span} [perspective:1100px]`}
+    <div
+      ref={viewRef}
+      className={`reveal ${inView ? "is-in" : ""} ${tile.span} [perspective:1100px]`}
+      style={{ "--delay": `${(index % 3) * 0.08}s` } as CSSProperties}
     >
       <motion.article
         ref={ref}
@@ -90,7 +85,7 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
           </p>
         </div>
       </motion.article>
-    </motion.div>
+    </div>
   );
 }
 

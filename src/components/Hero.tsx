@@ -1,36 +1,24 @@
-import { motion } from "motion/react";
-import { useReduce } from "../lib/useReduce";
+import type { CSSProperties } from "react";
 import { useLenis } from "lenis/react";
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
 import Magnetic from "./Magnetic";
 
-// Headline split so each word rises on its own beat (transform-only mask reveal).
+// Headline split so each word rises on its own beat (CSS mask reveal).
 const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
+const d = (s: number) => ({ "--delay": `${s}s` }) as CSSProperties;
+const wordDelay = (i: number) => 0.15 + i * 0.04;
 
 export default function Hero() {
-  const reduce = useReduce();
   const lenis = useLenis();
   const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
-
-  const rise = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 18 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as const },
-        };
-
-  const wordDelay = (i: number) => 0.15 + i * 0.04;
 
   return (
     <section className="relative flex flex-col overflow-hidden pb-20 pt-32 md:pt-40 landscape:min-h-[100svh] landscape:justify-center">
       <div className="shell relative z-10">
-        {/* Eyebrow: a substantial role line + an availability marker.
-            Real type weight, not slim wide-tracked caps. */}
-        <motion.div
-          {...rise(0)}
-          className="mb-9 flex flex-wrap items-center gap-x-4 gap-y-2"
+        {/* Eyebrow: a substantial role line + an availability marker. */}
+        <div
+          className="anim-rise mb-9 flex flex-wrap items-center gap-x-4 gap-y-2"
+          style={d(0)}
         >
           <span className="text-base font-semibold tracking-tight text-ink">
             AI Workflow Engineer at DemandNXT
@@ -40,7 +28,7 @@ export default function Hero() {
             <span className="h-2 w-2 rounded-full bg-accent" aria-hidden />
             Available for freelance work
           </span>
-        </motion.div>
+        </div>
 
         {/* Headline */}
         <h1 className="max-w-[16ch] text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[1.03] tracking-[-0.02em] text-ink lg:max-w-[18ch]">
@@ -49,47 +37,32 @@ export default function Hero() {
               key={`${word}-${i}`}
               className="inline-block overflow-hidden align-bottom"
             >
-              <motion.span
-                className="inline-block"
-                initial={reduce ? false : { y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  duration: 0.75,
-                  delay: wordDelay(i),
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
+              <span className="word-rise" style={d(wordDelay(i))}>
                 {word}&nbsp;
-              </motion.span>
+              </span>
             </span>
           ))}
           <span className="inline-block overflow-hidden align-bottom">
-            <motion.span
-              className="accent-shimmer inline-block"
-              initial={reduce ? false : { y: "110%" }}
-              animate={{ y: 0 }}
-              transition={{
-                duration: 0.85,
-                delay: wordDelay(HEAD_LEAD.length),
-                ease: [0.16, 1, 0.3, 1],
-              }}
+            <span
+              className="word-rise accent-shimmer"
+              style={d(wordDelay(HEAD_LEAD.length))}
             >
               reliable automation.
-            </motion.span>
+            </span>
           </span>
         </h1>
 
         {/* Sub */}
-        <motion.p
-          {...rise(0.55)}
-          className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-dim md:text-lg"
+        <p
+          className="anim-rise mt-8 max-w-xl text-pretty text-base leading-relaxed text-dim md:text-lg"
+          style={d(0.55)}
         >
           Concretely: multi-model pipelines, LLM apps, and structured output that
           holds up in production, not just in a demo.
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div {...rise(0.65)} className="mt-10 flex flex-wrap items-center gap-3">
+        <div className="anim-rise mt-10 flex flex-wrap items-center gap-3" style={d(0.65)}>
           <Magnetic className="inline-block">
             <button
               onClick={() => goTo("work")}
@@ -112,27 +85,23 @@ export default function Hero() {
               <ArrowUpRight weight="bold" size={16} className="text-dim" />
             </button>
           </Magnetic>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll cue — anchored at the bottom of the viewport (mobile + desktop) */}
-      <motion.button
+      {/* Scroll cue */}
+      <button
         onClick={() => goTo("work")}
         aria-label="Scroll to work"
-        {...rise(0.9)}
-        className="relative z-10 mx-auto mt-14 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
+        className="anim-rise relative z-10 mx-auto mt-14 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
+        style={d(0.9)}
       >
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em]">
           Scroll
         </span>
-        <motion.span
-          animate={reduce ? {} : { y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          aria-hidden
-        >
+        <span className="anim-nudge" aria-hidden>
           <ArrowDown weight="bold" size={14} />
-        </motion.span>
-      </motion.button>
+        </span>
+      </button>
     </section>
   );
 }
