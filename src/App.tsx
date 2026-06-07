@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Case study lives behind a route the landing page never needs up front, so it
 // is code-split — the initial bundle stays lean and the homepage paints sooner.
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const Legal = lazy(() => import("./pages/Legal"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -52,6 +53,16 @@ function AnimatedRoutes() {
             <Page>
               <Suspense fallback={<div className="min-h-[60vh]" />}>
                 <CaseStudy />
+              </Suspense>
+            </Page>
+          }
+        />
+        <Route
+          path="/legal/:doc"
+          element={
+            <Page>
+              <Suspense fallback={<div className="min-h-[60vh]" />}>
+                <Legal />
               </Suspense>
             </Page>
           }

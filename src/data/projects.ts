@@ -13,6 +13,12 @@ export const GITHUB = "https://github.com/Harshith29124";
 export const LINKEDIN =
   "https://www.linkedin.com/in/harshith-nayaka-l-518b98348";
 export const EMAIL = "harshith28124@gmail.com";
+export const NAME = "Harshith Nayaka L";
+/** Submissions go through Web3Forms when a key is set; otherwise the form
+ *  falls back to a prefilled mailto. Set VITE_WEB3FORMS_KEY in the env. */
+export const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as
+  | string
+  | undefined;
 
 /** Ordered by strength - the grid renders them in this order. */
 export const projects: Project[] = [

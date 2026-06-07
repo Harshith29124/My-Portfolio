@@ -1,70 +1,252 @@
-import { ArrowUpRight, EnvelopeSimple } from "@phosphor-icons/react";
-import { EMAIL, LINKEDIN, GITHUB } from "../data/projects";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, PaperPlaneTilt, CheckCircle } from "@phosphor-icons/react";
+import { EMAIL, LINKEDIN, GITHUB, WEB3FORMS_KEY } from "../data/projects";
 import Reveal from "./Reveal";
-import Magnetic from "./Magnetic";
 
 const socials = [
   { label: "LinkedIn", href: LINKEDIN },
   { label: "GitHub", href: GITHUB },
 ];
 
+type Status = "idle" | "sending" | "sent" | "error";
+
+const fieldBase =
+  "peer w-full border-b border-line bg-transparent py-2.5 text-sm text-ink placeholder-transparent transition-colors focus:border-accent focus:outline-none";
+const labelBase =
+  "pointer-events-none absolute left-0 top-2.5 origin-left font-mono text-[12px] uppercase tracking-[0.12em] text-faint transition-all duration-200 peer-focus:-translate-y-4 peer-focus:text-[10px] peer-focus:text-accent-ink peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:text-[10px]";
+
 export default function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const get = (k: string) => String(fd.get(k) ?? "").trim();
+    const firstName = get("firstName");
+    const lastName = get("lastName");
+    const email = get("email");
+    const company = get("company");
+    const message = get("message");
+
+    if (WEB3FORMS_KEY) {
+      setStatus("sending");
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `Portfolio enquiry — ${firstName} ${lastName}`.trim(),
+            from_name: `${firstName} ${lastName}`.trim() || "Portfolio enquiry",
+            email,
+            company,
+            message,
+          }),
+        });
+        const json = await res.json();
+        if (json.success) {
+          setStatus("sent");
+          form.reset();
+        } else setStatus("error");
+      } catch {
+        setStatus("error");
+      }
+    } else {
+      // No form provider configured — fall back to a prefilled email.
+      const subject = encodeURIComponent(`Portfolio enquiry — ${firstName}`);
+      const body = encodeURIComponent(
+        `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\n\n${message}`,
+      );
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      setStatus("sent");
+    }
+  }
+
   return (
     <section
       id="contact"
       className="relative scroll-mt-28 border-t border-line bg-surface/40"
     >
       <div className="shell relative py-20 md:py-28">
-        <Reveal>
-          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <h2 className="text-balance text-[clamp(1.9rem,5vw,3rem)] font-semibold leading-[1.1] tracking-tight">
-              Have a manual process that should be a reliable system? Tell me
-              about it.
-            </h2>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-dim md:text-lg">
-              The clearest way to reach me is email. Send a couple of lines about
-              the problem and I'll tell you honestly whether I'm the right person
-              to build it.
-            </p>
+        <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          {/* Pitch + direct contact */}
+          <Reveal>
+            <div>
+              <h2 className="text-balance text-[clamp(1.9rem,4.5vw,3rem)] font-semibold leading-[1.1] tracking-tight">
+                Have a manual process that should be a reliable system? Tell me
+                about it.
+              </h2>
+              <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-dim md:text-lg">
+                Send a couple of lines about the problem and I'll tell you
+                honestly whether I'm the right person to build it.
+              </p>
 
-            <div className="glass-card mt-10 w-full rounded-[var(--radius-lg)] p-5 sm:p-7">
-              <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
-                <Magnetic className="inline-block w-full sm:w-auto">
-                  <a
-                    href={`mailto:${EMAIL}?subject=Project%20enquiry`}
-                    className="btn-accent group inline-flex w-full items-center justify-center gap-2.5 rounded-full py-3 pl-6 pr-3 text-sm font-semibold sm:w-auto"
-                  >
-                    Get in touch
-                    <span className="cta-icon">
-                      <EnvelopeSimple weight="bold" size={14} />
-                    </span>
-                  </a>
-                </Magnetic>
+              <div className="mt-8 space-y-3">
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="min-w-0 break-all font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink sm:break-normal"
+                  className="inline-flex items-center gap-2 font-mono text-sm font-medium text-dim transition-colors hover:text-accent-ink"
                 >
                   {EMAIL}
                 </a>
-              </div>
-
-              <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-3 border-t border-line pt-5">
-                {socials.map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-accent-ink"
-                  >
-                    {s.label}
-                    <ArrowUpRight size={14} weight="bold" />
-                  </a>
-                ))}
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
+                  {socials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-accent-ink"
+                    >
+                      {s.label}
+                      <ArrowUpRight size={14} weight="bold" />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+
+          {/* Send-message form */}
+          <Reveal delay={0.08}>
+            <div className="glass-card rounded-[var(--radius-lg)] p-6 sm:p-8">
+              {status === "sent" ? (
+                <div className="flex min-h-[320px] flex-col items-center justify-center text-center">
+                  <CheckCircle size={40} weight="fill" className="text-accent-ink" />
+                  <p className="mt-4 text-lg font-semibold text-ink">
+                    Message on its way.
+                  </p>
+                  <p className="mt-2 max-w-xs text-sm text-dim">
+                    Thanks for reaching out — I'll get back to you at the email
+                    you provided, usually within a day or two.
+                  </p>
+                  <button
+                    onClick={() => setStatus("idle")}
+                    className="mt-6 text-sm font-semibold text-accent-ink hover:text-ink"
+                  >
+                    Send another
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="relative">
+                      <input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        required
+                        placeholder="First name"
+                        autoComplete="given-name"
+                        className={fieldBase}
+                      />
+                      <label htmlFor="firstName" className={labelBase}>
+                        First name
+                      </label>
+                    </div>
+                    <div className="relative">
+                      <input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        placeholder="Last name"
+                        autoComplete="family-name"
+                        className={fieldBase}
+                      />
+                      <label htmlFor="lastName" className={labelBase}>
+                        Last name
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="Email"
+                      autoComplete="email"
+                      inputMode="email"
+                      className={fieldBase}
+                    />
+                    <label htmlFor="email" className={labelBase}>
+                      Email
+                    </label>
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      id="company"
+                      name="company"
+                      type="text"
+                      placeholder="Company (optional)"
+                      autoComplete="organization"
+                      className={fieldBase}
+                    />
+                    <label htmlFor="company" className={labelBase}>
+                      Company (optional)
+                    </label>
+                  </div>
+
+                  <div className="relative">
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={4}
+                      placeholder="Message"
+                      className={`${fieldBase} resize-none`}
+                    />
+                    <label htmlFor="message" className={labelBase}>
+                      Message
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    style={{ touchAction: "manipulation" }}
+                    className="btn-accent group inline-flex w-full items-center justify-center gap-2.5 rounded-full py-3.5 text-sm font-semibold disabled:opacity-70"
+                  >
+                    {status === "sending" ? "Sending…" : "Send message"}
+                    <span className="cta-icon">
+                      <PaperPlaneTilt weight="bold" size={14} />
+                    </span>
+                  </button>
+
+                  <p
+                    aria-live="polite"
+                    className={`text-center text-[13px] ${
+                      status === "error" ? "text-ink" : "text-faint"
+                    }`}
+                  >
+                    {status === "error" ? (
+                      <>Something went wrong — please email me directly at{" "}
+                        <a href={`mailto:${EMAIL}`} className="font-semibold text-accent-ink">
+                          {EMAIL}
+                        </a>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        By submitting, you agree to the{" "}
+                        <Link
+                          to="/legal/privacy"
+                          className="font-medium text-accent-ink hover:text-ink"
+                        >
+                          Privacy Policy
+                        </Link>
+                        . No spam, no mailing list — I only use it to reply.
+                      </>
+                    )}
+                  </p>
+                </form>
+              )}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
