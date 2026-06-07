@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduce } from "../lib/useReduce";
 
 /**
  * Honest stack marquee. These are the tools actually used across the work
@@ -59,7 +60,7 @@ function Row({ tools, reverse }: { tools: Tool[]; reverse?: boolean }) {
 }
 
 export default function TechMarquee() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   return (
     <motion.section
       aria-label="Tools and models used across the work"

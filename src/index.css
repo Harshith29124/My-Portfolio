@@ -127,12 +127,6 @@
     background-color: var(--color-canvas);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
   body {
     margin: 0;
     background-color: var(--color-canvas);
@@ -342,16 +336,8 @@
   .btn-accent:active {
     transform: translateY(1px) scale(0.99);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .btn-accent {
-      transition: box-shadow 0.2s ease;
-    }
-    .btn-accent:active {
-      transform: none;
-    }
-  }
 
-  /* Honest tech-stack marquee (CSS-driven, pauses on hover + reduced-motion) */
+  /* Honest tech-stack marquee (CSS-driven, pauses on hover) */
   @keyframes marquee-l {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -475,12 +461,6 @@
   .stack-pill:hover img,
   .stack-pill:active img {
     transform: scale(1.12) rotate(-4deg);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .stack-pill,
-    .stack-pill:hover {
-      transform: none;
-    }
   }
 
   /* iOS-soft elevation: large, diffuse, hue-tinted (never pure black) */

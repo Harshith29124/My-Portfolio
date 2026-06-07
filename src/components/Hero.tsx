@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduce } from "../lib/useReduce";
 import { useLenis } from "lenis/react";
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
 import Magnetic from "./Magnetic";
@@ -7,7 +8,7 @@ import Magnetic from "./Magnetic";
 const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
 
 export default function Hero() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const lenis = useLenis();
   const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
 
