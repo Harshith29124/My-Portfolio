@@ -1,8 +1,8 @@
 import { useRef } from "react";
+import { useReduce } from "../lib/useReduce";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useReducedMotion } from "motion/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -11,7 +11,7 @@ const statement =
 
 export default function Approach() {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const words = statement.split(" ");
 
   useGSAP(

@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduce } from "../lib/useReduce";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -13,7 +14,7 @@ type RevealProps = {
  * it stays GPU-composited and smooth. Honors reduced-motion (renders static).
  */
 export default function Reveal({ children, delay = 0, y = 20, className }: RevealProps) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   return (
     <motion.div
       className={className}

@@ -1,5 +1,6 @@
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
+import { useReduce } from "../lib/useReduce";
+import { motion, useMotionValue, useSpring } from "motion/react";
 
 /**
  * Wraps an interactive element so it drifts toward the cursor (magnetic pull),
@@ -14,7 +15,7 @@ export default function Magnetic({
   strength?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);

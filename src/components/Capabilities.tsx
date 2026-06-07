@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduce } from "../lib/useReduce";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import NodeGlyph from "./NodeGlyph";
@@ -47,7 +48,7 @@ const tiles: Tile[] = [
 ];
 
 function TileCard({ tile, index }: { tile: Tile; index: number }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const { ref, onMouseMove, onMouseLeave, rotateX, rotateY } = useTilt(6);
   return (
     <motion.div

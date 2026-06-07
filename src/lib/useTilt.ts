@@ -1,12 +1,13 @@
 import { useRef } from "react";
-import { useMotionValue, useSpring, useReducedMotion } from "motion/react";
+import { useReduce } from "./useReduce";
+import { useMotionValue, useSpring } from "motion/react";
 
 /**
  * Cursor-driven 3D tilt for cards. Also writes --mx/--my so a `.spotlight`
  * highlight can share the same pointer move. Motion values only (no re-render).
  */
 export function useTilt(max = 7) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0);
   const ry = useMotionValue(0);
