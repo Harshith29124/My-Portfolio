@@ -50,9 +50,10 @@ export const projects: Project[] = [
       "A glass-box engine that routes one task across free LLMs — conductor, thinker, worker, verifier — and returns a single verified answer with a full decision-log of every step.",
     tags: ["LLM orchestration", "Verifier gates", "FastAPI", "Decision-log"],
     links: [
+      { label: "Live site", href: "https://maestro-psi-neon.vercel.app/" },
       { label: "GitHub", href: "https://github.com/Harshith29124/Maestro" },
     ],
-    hasCaseStudy: false,
+    hasCaseStudy: true,
   },
   {
     slug: "replydesk",
@@ -67,7 +68,7 @@ export const projects: Project[] = [
         href: "https://github.com/Harshith29124/Whatsapp-Agent-Dashboard",
       },
     ],
-    hasCaseStudy: false,
+    hasCaseStudy: true,
   },
   {
     slug: "nova-ai",

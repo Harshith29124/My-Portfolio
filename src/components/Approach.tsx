@@ -20,7 +20,10 @@ export default function Approach() {
       const wordEls = gsap.utils.toArray<HTMLElement>(".approach-word");
       // No pin (a pinned scrub reserves ~1.3 viewports of empty scroll). The
       // words simply brighten as the section passes through the viewport.
-      gsap.set(wordEls, { opacity: 0.18 });
+      // Resting opacity is 0.6, not near-invisible: it keeps the dim→bright
+      // reveal while still clearing WCAG contrast for this large text (the old
+      // 0.18 failed the audit at rest).
+      gsap.set(wordEls, { opacity: 0.6 });
       gsap.to(wordEls, {
         opacity: 1,
         ease: "none",

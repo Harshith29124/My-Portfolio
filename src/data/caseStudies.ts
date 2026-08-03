@@ -469,9 +469,216 @@ const aiNotes: CaseStudy = {
   links: [{ label: "View on GitHub", href: GITHUB }],
 };
 
+const maestro: CaseStudy = {
+  slug: "maestro",
+  title: "Maestro",
+  kicker: "Multi-model orchestration",
+  outcome:
+    "Get frontier-quality answers out of free models by orchestrating them: a conductor routes one task across thinker, worker, and verifier roles, and shows its work at every step.",
+  meta: [
+    { label: "Type", value: "Open-source orchestration engine" },
+    { label: "Pattern", value: "Conductor + Thinker / Worker / Verifier" },
+    { label: "Stack", value: "Python + FastAPI, deployed" },
+    { label: "Status", value: "Live & deployed" },
+  ],
+  problem: [
+    "A single free model is uneven: strong on some tasks, unreliable on others, and impossible to fully trust because you can't see how it reached an answer. The obvious workaround, pay for a bigger model, isn't the interesting one.",
+    "The interesting claim, backed by Sakana's TRINITY and Mixture-of-Agents research, is that intelligent orchestration beats raw model size. Maestro is a glass-box, open-source rebuild of that idea: not cheaper tokens (the models are already free), but better answers from them, with the reasoning made visible instead of hidden.",
+  ],
+  build: [
+    "A Conductor model reads a task and assigns Thinker, Worker, and Verifier roles across a pool of free LLMs, then a Synthesizer produces the final answer. Crucially, the Verifier is always a different model family than the Worker, which mitigates the well-documented 10–25% self-preference bias in LLM-as-judge.",
+    "Every step appends to a structured, replayable decision-log, the plan, the routing rationale, each model's output, the verifier's verdict, token and latency cost. That log is the actual product: it's what a black-box orchestration layer can't give you.",
+    "It's engineered to run in the real world on free tiers: a per-model token-bucket limiter enforcing both RPM and TPM, exponential backoff with jitter on 429s, and diversified fallback chains so one failed call never crashes a run. Models are swapped by editing one config file, never the orchestration code.",
+    "It deploys publicly without leaking your quota: API-key auth, per-client rate limiting (globally consistent via Upstash Redis on serverless), security headers, input hardening, and strict CORS, with a startup self-audit that warns on unsafe production config.",
+  ],
+  pipeline: [
+    {
+      title: "Task",
+      nodes: [
+        { id: "task", label: "Task in", detail: "A single prompt / problem", kind: "input" },
+      ],
+    },
+    {
+      title: "Conduct",
+      nodes: [
+        { id: "conductor", label: "Conductor", detail: "Plan + routing rationale", kind: "model" },
+      ],
+    },
+    {
+      title: "Reason",
+      nodes: [
+        { id: "thinker", label: "Thinker", detail: "Strategy for the answer", kind: "model" },
+        { id: "worker", label: "Worker", detail: "Produces the answer", kind: "model" },
+      ],
+    },
+    {
+      title: "Verify",
+      nodes: [
+        { id: "verify", label: "Verifier", detail: "Different model family; 1 bounded retry", kind: "gate" },
+      ],
+    },
+    {
+      title: "Deliver",
+      nodes: [
+        { id: "synth", label: "Synthesizer", detail: "Final answer", kind: "model" },
+        { id: "log", label: "Decision-log", detail: "Every step, replayable", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "The judge is never the same family as the worker",
+      body: "LLM-as-judge has a measured 10–25% self-preference bias, so a model grading its own family's output is compromised. Maestro's verifier is always a different model family than the worker, and a failed check triggers exactly one bounded retry rather than an open-ended loop.",
+    },
+    {
+      title: "The decision-log is the product",
+      body: "Every run emits a complete JSON log: the plan, why each model was routed where, each step's output and verdict, and the token/latency totals. You can replay and audit exactly how an answer was built, which is the whole point of a glass-box design.",
+    },
+    {
+      title: "Built for free-tier limits, honestly",
+      body: "Groq's free tier binds on tokens-per-minute, not requests. Maestro reserves estimated tokens before a call so it defers instead of getting 429'd, backs off with jitter when it does, and falls back across model families. Long-context steps route to Gemini's roomier budget.",
+    },
+    {
+      title: "Swap models without touching code",
+      body: "The model pool, role chains, and rate limits live in one config file; the orchestration logic never hard-codes a model ID. When the Groq catalog rotates, or a Llama model is retired, you edit config, not Python.",
+    },
+    {
+      title: "Deployable without leaking your quota",
+      body: "API-key auth, per-client rate limiting that stays consistent across serverless instances via Upstash Redis, security headers, input hardening, and a production self-audit that warns on wildcard CORS or mock mode left on. It's meant to be put on the public internet safely.",
+    },
+  ],
+  results: [
+    {
+      label: "What it demonstrates",
+      body: "Systems thinking about LLMs: routing, verification across model families, honest cost accounting, rate-limit engineering, and a security posture, all in service of making unreliable free models produce trustworthy, auditable output.",
+    },
+    {
+      label: "Honest disclosure",
+      body: "Maestro's conductor is prompt/rule-based, not a trained coordinator like Fugu's evolved model. It's a faithful re-creation of the concept, made open and transparent, not a claim to have reproduced the trained artifact. The benchmark harness is deliberately built to report where orchestration doesn't help.",
+    },
+    {
+      label: "Status",
+      body: "Open-source (MIT) and deployed live on Vercel, with a mock provider so the full flow, dashboard, and tests run offline with no API keys.",
+    },
+  ],
+  tech: [
+    "Python",
+    "FastAPI",
+    "Groq (Llama / Qwen / gpt-oss)",
+    "Google Gemini",
+    "Pydantic",
+    "Token-bucket rate limiting",
+    "Upstash Redis",
+    "Vercel / Railway",
+    "n8n",
+  ],
+  links: [
+    { label: "Live app", href: "https://maestro-psi-neon.vercel.app/" },
+    { label: "View on GitHub", href: "https://github.com/Harshith29124/Maestro" },
+  ],
+};
+
+const replydesk: CaseStudy = {
+  slug: "replydesk",
+  title: "ReplyDesk",
+  kicker: "WhatsApp lead agent",
+  outcome:
+    "Answer every inbound WhatsApp lead in seconds, automatically, with a live operations dashboard for the lead feed, pipeline, and response times.",
+  meta: [
+    { label: "Type", value: "Lead-response agent + dashboard" },
+    { label: "Focus", value: "Speed-to-lead" },
+    { label: "Role", value: "Solo build" },
+    { label: "Status", value: "Interactive prototype" },
+  ],
+  problem: [
+    "78% of customers buy from the business that responds first, yet the average small business takes around 29 hours to reply to a lead. By then the customer has already bought from someone faster.",
+    "The gap isn't intent, it's operations. Leads arrive on WhatsApp at all hours, a human can't sit on the inbox 24/7, and every minute of delay is measurable lost revenue.",
+  ],
+  build: [
+    "ReplyDesk is a WhatsApp lead agent that captures every inbound message and fires a first reply in roughly eight seconds, so no lead sits waiting. Around it sits a live operations dashboard, the piece that makes the automation legible to the person running it.",
+    "The dashboard is the control room: a real-time lead feed, a pipeline breakdown of where each lead sits, a 'needs your attention' queue that surfaces the ones a human should actually touch, and response-time KPIs that keep the whole thing honest against that first-responder metric.",
+    "It's a self-contained, interactive front-end prototype, you can simulate an incoming lead and watch it flow through capture, reply, and pipeline in real time, built to prove the interaction model and the operational value, not to be a finished SaaS.",
+  ],
+  pipeline: [
+    {
+      title: "Inbound",
+      nodes: [
+        { id: "msg", label: "WhatsApp message", detail: "A new lead arrives", kind: "input" },
+      ],
+    },
+    {
+      title: "Capture",
+      nodes: [
+        { id: "feed", label: "Into the lead feed", detail: "Logged in real time", kind: "logic" },
+      ],
+    },
+    {
+      title: "Respond",
+      nodes: [
+        { id: "reply", label: "Agent first reply", detail: "~8s, every time", kind: "model" },
+      ],
+    },
+    {
+      title: "Qualify",
+      nodes: [
+        { id: "route", label: "Score & route", detail: "Hot / warm / needs attention", kind: "gate" },
+      ],
+    },
+    {
+      title: "Operate",
+      nodes: [
+        { id: "dash", label: "Live dashboard", detail: "Feed, pipeline, KPIs", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "Speed is the entire product",
+      body: "The whole system is organized around one number: time to first reply. Answering in seconds instead of hours is the difference between winning the lead and losing it, so that metric sits front and center on the dashboard.",
+    },
+    {
+      title: "A dashboard that shows the pipeline, not just a chat log",
+      body: "Leads are broken down by stage so the operator can see the shape of the funnel at a glance, how many are hot, how many are cooling, where things are stuck, rather than scrolling an undifferentiated inbox.",
+    },
+    {
+      title: "Automation that still asks for a human when it matters",
+      body: "A 'needs your attention' queue pulls out the leads that genuinely require a person, so automation handles the volume while the operator spends their time only where it moves the needle.",
+    },
+    {
+      title: "Built to be felt, not just described",
+      body: "The prototype lets you simulate an incoming lead and watch it move through the system live, so the speed-to-lead value is something you experience in the interface rather than a claim in a slide.",
+    },
+  ],
+  results: [
+    {
+      label: "What it proves",
+      body: "Product sense around a real, quantified business problem: turning the 'respond first' statistic into an operational tool, and designing the dashboard an operator would actually run their day from.",
+    },
+    {
+      label: "Honest scope",
+      body: "This is a self-contained interactive front-end prototype with a simulate-lead demo, not a WhatsApp-connected production deployment. It's proof of the interaction and operations model, and it's honest about being exactly that.",
+    },
+  ],
+  tech: [
+    "WhatsApp (lead channel)",
+    "LLM agent",
+    "Real-time dashboard",
+    "Vanilla JavaScript",
+    "HTML / CSS",
+  ],
+  links: [
+    {
+      label: "View on GitHub",
+      href: "https://github.com/Harshith29124/Whatsapp-Agent-Dashboard",
+    },
+  ],
+};
+
 export const caseStudies: Record<string, CaseStudy> = {
   craftconnect,
   "creative-ops-pipeline": creativeOps,
+  maestro,
+  replydesk,
   "nova-ai": novaAi,
   blogspace,
   "ai-notes": aiNotes,

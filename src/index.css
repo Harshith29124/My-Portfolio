@@ -1,15 +1,9 @@
 @import "tailwindcss";
 
-/* Self-hosted fonts. Poppins for display headings (warm geometric voice),
-   Inter for body/UI text (clean and legible at any size), DM Mono for the
-   small technical labels (signature detail). */
-@import "@fontsource/poppins/latin-400.css";
-@import "@fontsource/poppins/latin-500.css";
-@import "@fontsource/poppins/latin-600.css";
-@import "@fontsource/poppins/latin-700.css";
-@import "@fontsource-variable/inter/wght.css";
-@import "@fontsource/dm-mono/latin-400.css";
-@import "@fontsource/dm-mono/latin-500.css";
+/* Self-hosted fonts (latin subsets, font-display: optional + preloaded). See
+   fonts.css — Poppins for display headings, Inter for body/UI, DM Mono for the
+   small technical labels. */
+@import "./fonts.css";
 
 /* ----------------------------------------------------------------------
    Design tokens. Dual-mode: dark + light. Colors are `@theme inline` so

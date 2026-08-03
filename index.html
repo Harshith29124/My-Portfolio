@@ -23,6 +23,13 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F6" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0B0F" />
 
+    <!-- Preload the critical above-the-fold faces so the real type is ready
+         before first paint. With font-display: optional this prevents the
+         late-swap reflow that caused the desktop layout shift (CLS). -->
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+
     <title>
       Harshith Nayaka L — AI Workflow Engineer | Reliable AI Systems & Pipelines
     </title>
@@ -137,18 +144,30 @@
               {
                 "@type": "ListItem",
                 "position": 3,
+                "url": "https://my-portfolio-harshith.vercel.app/work/maestro",
+                "name": "Maestro — live open-source multi-model LLM orchestration engine with a full decision-log"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "url": "https://my-portfolio-harshith.vercel.app/work/replydesk",
+                "name": "ReplyDesk — WhatsApp lead agent that auto-replies in seconds, with a live operations dashboard"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
                 "url": "https://my-portfolio-harshith.vercel.app/work/nova-ai",
                 "name": "Nova AI — deployed Llama 3.1 8B chat app with a server-side token proxy"
               },
               {
                 "@type": "ListItem",
-                "position": 4,
+                "position": 6,
                 "url": "https://my-portfolio-harshith.vercel.app/work/blogspace",
                 "name": "BlogSpace — full-stack blogging platform with JWT auth and admin panel"
               },
               {
                 "@type": "ListItem",
-                "position": 5,
+                "position": 7,
                 "url": "https://my-portfolio-harshith.vercel.app/work/ai-notes",
                 "name": "AI Notes — local-inference notes app running DeepSeek R1 via Ollama"
               }
@@ -181,6 +200,17 @@
           <a href="/work/craftconnect">CraftConnect</a> — a multi-modal
           assistant that lets artisans run an online storefront by talking and
           showing; Gen AI Exchange Hackathon 2025 semi-finalist.
+        </li>
+        <li>
+          <a href="/work/maestro">Maestro</a> — a live, open-source multi-model
+          orchestration engine: a conductor routes one task across
+          thinker/worker/verifier roles over free LLMs and returns a single
+          verified answer with a full decision-log.
+        </li>
+        <li>
+          <a href="/work/replydesk">ReplyDesk</a> — a WhatsApp lead agent that
+          auto-replies to inbound messages in seconds, with a live operations
+          dashboard for the lead feed, pipeline, and response-time KPIs.
         </li>
         <li>
           <a href="/work/nova-ai">Nova AI</a> — a deployed Llama 3.1 8B chat app

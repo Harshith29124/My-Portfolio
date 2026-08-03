@@ -91,7 +91,7 @@ export default function Hero() {
       <button
         onClick={() => goTo("work")}
         aria-label="Scroll to work"
-        className="anim-rise relative z-10 mx-auto mt-14 flex flex-col items-center gap-1.5 text-faint transition-colors hover:text-accent-ink"
+        className="anim-rise relative z-10 mx-auto mt-14 flex flex-col items-center gap-1.5 text-dim transition-colors hover:text-accent-ink"
         style={d(0.9)}
       >
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em]">

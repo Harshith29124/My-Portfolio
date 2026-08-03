@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|assets/).*)",
+      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|fonts/|assets/).*)",
       "destination": "/index.html"
     }
   ],
@@ -17,6 +17,13 @@
     {
       "source": "/sitemap.xml",
       "headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type", "value": "font/woff2" }
+      ]
     }
   ]
 }
