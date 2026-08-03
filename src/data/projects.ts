@@ -43,6 +43,33 @@ export const projects: Project[] = [
     hasCaseStudy: true,
   },
   {
+    slug: "maestro",
+    title: "Maestro",
+    kicker: "Multi-model orchestration",
+    outcome:
+      "A glass-box engine that routes one task across free LLMs — conductor, thinker, worker, verifier — and returns a single verified answer with a full decision-log of every step.",
+    tags: ["LLM orchestration", "Verifier gates", "FastAPI", "Decision-log"],
+    links: [
+      { label: "GitHub", href: "https://github.com/Harshith29124/Maestro" },
+    ],
+    hasCaseStudy: false,
+  },
+  {
+    slug: "replydesk",
+    title: "ReplyDesk",
+    kicker: "WhatsApp lead agent",
+    outcome:
+      "A WhatsApp lead agent that captures every inbound message and auto-replies in ~8 seconds, with a live dashboard for the lead feed, pipeline, and response-time KPIs.",
+    tags: ["WhatsApp", "Lead automation", "Real-time dashboard", "Agent"],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/Harshith29124/Whatsapp-Agent-Dashboard",
+      },
+    ],
+    hasCaseStudy: false,
+  },
+  {
     slug: "nova-ai",
     title: "Nova AI",
     kicker: "Deployed LLM chat app",
