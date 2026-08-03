@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { motion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import NodeGlyph from "./NodeGlyph";
@@ -50,20 +49,19 @@ const tiles: Tile[] = [
 
 function TileCard({ tile, index }: { tile: Tile; index: number }) {
   const { ref: viewRef, inView } = useInView<HTMLDivElement>();
-  const { ref, onMouseMove, onMouseLeave, rotateX, rotateY } = useTilt(6);
+  const { ref, onMouseMove, onMouseLeave } = useTilt(6);
   return (
     <div
       ref={viewRef}
       className={`reveal ${inView ? "is-in" : ""} ${tile.span} [perspective:1100px]`}
       style={{ "--delay": `${(index % 3) * 0.08}s` } as CSSProperties}
     >
-      <motion.article
+      <article
         ref={ref}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        whileTap={{ scale: 0.99 }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className={`group glass-card spotlight relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 ${
+        style={{ transformStyle: "preserve-3d" }}
+        className={`group glass-card spotlight relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 active:scale-[0.99] ${
           tile.feature ? "justify-between" : "justify-start"
         }`}
       >
@@ -84,7 +82,7 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
             {tile.body}
           </p>
         </div>
-      </motion.article>
+      </article>
     </div>
   );
 }

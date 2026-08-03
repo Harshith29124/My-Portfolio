@@ -1,19 +1,16 @@
 import { useRef } from "react";
 import { useReduce } from "./useReduce";
-import { useMotionValue, useSpring } from "motion/react";
 
 /**
  * Cursor-driven 3D tilt for cards. Also writes --mx/--my so a `.spotlight`
- * highlight can share the same pointer move. Motion values only (no re-render).
+ * highlight can share the same pointer move.
+ *
+ * Writes transforms directly to the node — no motion values, no re-render, and
+ * nothing but `transform` changing, so the tilt stays on the compositor.
  */
 export function useTilt(max = 7) {
   const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const spring = { stiffness: 200, damping: 18, mass: 0.4 };
-  const rotateX = useSpring(rx, spring);
-  const rotateY = useSpring(ry, spring);
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -24,13 +21,18 @@ export function useTilt(max = 7) {
     el.style.setProperty("--mx", `${e.clientX - r.left}px`);
     el.style.setProperty("--my", `${e.clientY - r.top}px`);
     if (reduce) return;
-    ry.set((px - 0.5) * max * 2);
-    rx.set((0.5 - py) * max * 2);
-  };
-  const onMouseLeave = () => {
-    rx.set(0);
-    ry.set(0);
+    const ry = (px - 0.5) * max * 2;
+    const rx = (0.5 - py) * max * 2;
+    el.style.transition = "transform 0.15s linear";
+    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
   };
 
-  return { ref, onMouseMove, onMouseLeave, rotateX, rotateY };
+  const onMouseLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transition = "transform 0.6s cubic-bezier(0.32, 0.72, 0, 1)";
+    el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+  };
+
+  return { ref, onMouseMove, onMouseLeave };
 }

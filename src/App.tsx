@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
@@ -20,47 +19,43 @@ function ScrollManager() {
   return null;
 }
 
-// Pages glide in/out as a unit. Transform + opacity only.
-const pageMotion = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.4, ease: [0.32, 0.72, 0, 1] as const },
-};
-
+// Pages glide in as a unit. A CSS keyframe (transform + opacity only, so it
+// stays composited) replaces the motion library's AnimatePresence — remounting
+// on the route key restarts the animation. Exit animations are dropped
+// deliberately: holding the outgoing page in the tree to animate it out is what
+// forced the whole animation runtime into the initial bundle.
 function Page({ children }: { children: React.ReactNode }) {
-  return <motion.div {...pageMotion}>{children}</motion.div>;
+  return <div className="page-enter">{children}</div>;
 }
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const key = location.pathname.split("/")[1] || "home";
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname.split("/")[1] || "home"}>
-        <Route path="/" element={<Page><Home /></Page>} />
-        <Route
-          path="/work/:slug"
-          element={
-            <Page>
-              <Suspense fallback={<div className="min-h-[60vh]" />}>
-                <CaseStudy />
-              </Suspense>
-            </Page>
-          }
-        />
-        <Route
-          path="/legal/:doc"
-          element={
-            <Page>
-              <Suspense fallback={<div className="min-h-[60vh]" />}>
-                <Legal />
-              </Suspense>
-            </Page>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AnimatePresence>
+    <Routes location={location} key={key}>
+      <Route path="/" element={<Page><Home /></Page>} />
+      <Route
+        path="/work/:slug"
+        element={
+          <Page>
+            <Suspense fallback={<div className="min-h-screen" />}>
+              <CaseStudy />
+            </Suspense>
+          </Page>
+        }
+      />
+      <Route
+        path="/legal/:doc"
+        element={
+          <Page>
+            <Suspense fallback={<div className="min-h-screen" />}>
+              <Legal />
+            </Suspense>
+          </Page>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

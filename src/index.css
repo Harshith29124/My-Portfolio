@@ -214,6 +214,23 @@
   .anim-nudge {
     animation: nudge 1.8s ease-in-out infinite;
   }
+  /* Route transition: pages fade/slide in on mount. Transform + opacity only,
+     so it runs on the compositor. */
+  .page-enter {
+    animation: rise-in 0.42s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  /* Approach statement: words rest dimmed (still WCAG-legible) and brighten in
+     sequence once the section scrolls into view. Staggered per-word via an
+     inline transition-delay. Pure CSS — no scroll handler, no layout reads. */
+  .approach-word {
+    opacity: 0.6;
+    transition: opacity 0.5s ease-out;
+  }
+  .approach-word.is-lit {
+    opacity: 1;
+  }
+
   /* Scroll-reveal: hidden until an IntersectionObserver adds `.is-in` */
   .reveal {
     opacity: 0;
@@ -299,26 +316,22 @@
       0 34px 70px -28px rgba(0, 0, 0, 0.55);
   }
 
-  /* Slow accent pan on the headline highlight — reads as quiet, alive sheen
-     rather than a static colour. GPU-cheap (paints text, animates position). */
-  @keyframes accent-pan {
-    to {
-      background-position: 200% center;
-    }
-  }
+  /* Accent gradient on the headline highlight — depth without a flat fill.
+     Deliberately static: this previously animated `background-position`, which
+     no browser can composite, so it ran forever on the main thread (flagged by
+     the perf audit and a needless battery cost on the largest text on the
+     page). The gradient carries the richness on its own. */
   .accent-shimmer {
     background: linear-gradient(
       100deg,
       var(--color-accent-ink) 0%,
-      color-mix(in oklab, var(--color-accent-ink) 45%, var(--color-ink)) 45%,
-      var(--color-accent-ink) 90%
+      color-mix(in oklab, var(--color-accent-ink) 55%, var(--color-ink)) 55%,
+      var(--color-accent-ink) 100%
     );
-    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: accent-pan 5s linear infinite;
   }
   .text-pretty {
     text-wrap: pretty;
