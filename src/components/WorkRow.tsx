@@ -52,7 +52,7 @@ export default function WorkRow({ project }: { project: Project }) {
             {title}
           </h3>
 
-          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-dim md:text-lg">
+          <p className="mt-3 max-w-xl text-pretty leading-relaxed text-dim md:text-lg xl:max-w-3xl">
             {outcome}
           </p>
 

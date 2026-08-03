@@ -508,6 +508,8 @@
   }
 
   /* Reusable wrapping container */
+  /* Content container. Scales with the display so large desktops don't leave
+     huge dead margins, while long-form text keeps a readable measure. */
   .shell {
     width: 100%;
     max-width: 1180px;
@@ -517,6 +519,18 @@
   @media (min-width: 768px) {
     .shell {
       padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1440px) {
+    .shell {
+      max-width: 1320px;
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1728px) {
+    .shell {
+      max-width: 1460px;
+      padding-inline: 3rem;
     }
   }
 }
