@@ -34,12 +34,14 @@ export default function About() {
               {facts.map((f) => (
                 <div
                   key={f.k}
-                  className="flex items-baseline justify-between border-t border-line py-3 first:border-t-0"
+                  className="flex items-baseline justify-between gap-4 border-t border-line py-3 first:border-t-0"
                 >
-                  <dt className="font-mono text-[12px] font-medium uppercase tracking-wider text-dim">
+                  <dt className="shrink-0 font-mono text-[12px] font-medium uppercase tracking-wider text-dim">
                     {f.k}
                   </dt>
-                  <dd className="text-sm font-semibold text-ink">{f.v}</dd>
+                  <dd className="text-right text-sm font-semibold text-ink">
+                    {f.v}
+                  </dd>
                 </div>
               ))}
             </dl>
