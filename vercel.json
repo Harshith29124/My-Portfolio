@@ -9,7 +9,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|fonts/|icons/|assets/).*)",
+      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|google930d0c4b321815d5\\.html|fonts/|icons/|assets/).*)",
       "destination": "/index.html"
     }
   ],
