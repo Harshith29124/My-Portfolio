@@ -7,6 +7,15 @@ import { useEffect, useRef } from "react";
  * scrollable distance is cached (recomputed only on resize) so the scroll
  * handler never touches layout. Only `transform` is written, so the beam stays
  * on the compositor.
+ *
+ * The initial measurement deliberately does NOT run synchronously in this
+ * effect. Reading `scrollHeight` right after this component's own DOM node was
+ * just inserted forces the browser to flush layout for the entire document
+ * immediately, instead of on its own schedule — a forced reflow, and one the
+ * perf audit could point at by line number. ResizeObserver's callback fires
+ * once on its own (queued by the browser, not us) right after `.observe()`, so
+ * routing the first read through it gets the same result without forcing
+ * anything.
  */
 export default function ScrollProgress() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,14 +26,6 @@ export default function ScrollProgress() {
 
     let maxScroll = 1;
     let ticking = false;
-
-    // Layout read happens here only — never inside the scroll handler.
-    const measure = () => {
-      maxScroll = Math.max(
-        1,
-        document.documentElement.scrollHeight - window.innerHeight,
-      );
-    };
 
     const paint = () => {
       ticking = false;
@@ -38,12 +39,12 @@ export default function ScrollProgress() {
       requestAnimationFrame(paint);
     };
 
-    measure();
-    paint();
-
     window.addEventListener("scroll", onScroll, { passive: true });
     const ro = new ResizeObserver(() => {
-      measure();
+      maxScroll = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
       paint();
     });
     ro.observe(document.documentElement);
