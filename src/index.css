@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "lenis/dist/lenis.css";
 
 /* Self-hosted fonts. Poppins for display headings (warm geometric voice),
    Inter for body/UI text (clean and legible at any size), DM Mono for the

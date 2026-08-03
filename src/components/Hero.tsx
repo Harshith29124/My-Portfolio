@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
-import { useLenis } from "lenis/react";
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
 import Magnetic from "./Magnetic";
+import { scrollToSection } from "../lib/scrollToSection";
 
 // Headline split so each word rises on its own beat (CSS mask reveal).
 const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
@@ -9,8 +9,7 @@ const d = (s: number) => ({ "--delay": `${s}s` }) as CSSProperties;
 const wordDelay = (i: number) => 0.15 + i * 0.04;
 
 export default function Hero() {
-  const lenis = useLenis();
-  const goTo = (id: string) => lenis?.scrollTo(`#${id}`, { offset: -80 });
+  const goTo = (id: string) => scrollToSection(id);
 
   return (
     <section className="relative flex flex-col overflow-hidden pb-20 pt-32 md:pt-40 landscape:min-h-[100svh] landscape:justify-center">

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLenis } from "lenis/react";
+import { scrollToSection } from "../lib/scrollToSection";
 import { EMAIL, LINKEDIN, GITHUB, NAME } from "../data/projects";
 
 const nav = [
@@ -26,18 +26,16 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const lenis = useLenis();
 
   const goTo = useCallback(
     (id: string) => {
-      const scroll = () => lenis?.scrollTo(`#${id}`, { offset: -90 });
-      if (pathname === "/") scroll();
+      if (pathname === "/") scrollToSection(id);
       else {
         navigate("/");
-        window.setTimeout(scroll, 120);
+        window.setTimeout(() => scrollToSection(id), 150);
       }
     },
-    [pathname, navigate, lenis],
+    [pathname, navigate],
   );
 
   const col = "flex flex-col gap-3";

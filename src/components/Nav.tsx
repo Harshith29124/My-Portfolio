@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { useLenis } from "lenis/react";
+import { scrollToSection } from "../lib/scrollToSection";
 import ThemeToggle from "./ThemeToggle";
 
 const sections = [
@@ -13,7 +13,6 @@ const sections = [
 export default function Nav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const lenis = useLenis();
   const [active, setActive] = useState("");
 
   // Track which section is in view to light the matching nav link.
@@ -40,17 +39,13 @@ export default function Nav() {
 
   const goTo = useCallback(
     (id: string) => {
-      const scroll = () =>
-        lenis?.scrollTo(id === "top" ? 0 : `#${id}`, {
-          offset: id === "top" ? 0 : -90,
-        });
-      if (pathname === "/") scroll();
+      if (pathname === "/") scrollToSection(id);
       else {
         navigate("/");
-        window.setTimeout(scroll, 120);
+        window.setTimeout(() => scrollToSection(id), 150);
       }
     },
-    [pathname, navigate, lenis],
+    [pathname, navigate],
   );
 
   return (
