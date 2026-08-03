@@ -27,12 +27,21 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F6" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0B0F" />
 
-    <!-- Preload the critical above-the-fold faces so the real type is ready
-         before first paint. With font-display: optional this prevents the
-         late-swap reflow that caused the desktop layout shift (CLS). -->
+    <!-- Preload every self-hosted font (all 8 are small: 7-15KB each, under
+         200KB combined) so none of them are ever discovered late via the CSS
+         @font-face parse. A font that finishes loading mid-render forces the
+         browser to recompute text layout against the real metrics instead of
+         the fallback's — a real, traced forced-reflow source (not
+         script-triggered, so tools can't point at a JS call site for it), and
+         it also shortens the network dependency chain: these fetches now
+         start in parallel with the CSS instead of chained behind it. -->
     <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/dm-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/dm-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>
