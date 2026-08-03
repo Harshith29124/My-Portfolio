@@ -11,3 +11,6 @@ npm-debug.log*
 .agents
 .claude
 .skillkit
+
+# TypeScript incremental build artifact (regenerated on every build)
+*.tsbuildinfo
