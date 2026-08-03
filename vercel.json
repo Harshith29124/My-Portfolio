@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|fonts/|assets/).*)",
+      "source": "/((?!robots\\.txt|llms\\.txt|sitemap\\.xml|favicon\\.svg|og-image\\.png|og-image\\.svg|profile\\.jpg|fonts/|icons/|assets/).*)",
       "destination": "/index.html"
     }
   ],
@@ -23,6 +23,12 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
         { "key": "Content-Type", "value": "font/woff2" }
+      ]
+    },
+    {
+      "source": "/icons/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
   ]

@@ -2,7 +2,8 @@ import { useInView } from "../lib/useInView";
 
 /**
  * Honest stack marquee. These are the tools actually used across the work
- * (not "trusted by" clients). Logos via Simple Icons CDN, text fallback baked in.
+ * (not "trusted by" clients). Logos are self-hosted Simple Icons SVGs under
+ * /public/icons (no third-party CDN, so no extra connection or cache miss).
  * Items are tactile capsules that spring on hover; the whole strip fades and
  * lifts in on scroll so the section reads as alive, not a static logo wall.
  */
@@ -31,12 +32,13 @@ function Item({ tool }: { tool: Tool }) {
     <span className="stack-pill mx-2.5 shrink-0 text-dim">
       {tool.slug && (
         <img
-          src={`https://cdn.simpleicons.org/${tool.slug}/9a9aa2`}
+          src={`/icons/${tool.slug}.svg`}
           alt=""
           aria-hidden
           width={18}
           height={18}
           loading="lazy"
+          decoding="async"
           className="h-[18px] w-[18px] opacity-90"
         />
       )}

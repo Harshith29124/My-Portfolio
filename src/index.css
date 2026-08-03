@@ -59,7 +59,9 @@
   --line-strong: rgba(18, 20, 26, 0.18);
   --ink: #14161c;
   --dim: #565b67;
-  --faint: #878d9a;
+  /* faint is still the most muted text tone, but dark enough to clear WCAG AA
+     (4.5:1) for the small mono labels that use it (footer, legal, pipeline). */
+  --faint: #636978;
   --accent: #b85c38;
   --accent-ink: #9a4527;
   --accent-dim: rgba(184, 92, 56, 0.12);
@@ -91,7 +93,8 @@
   --line-strong: rgba(255, 255, 255, 0.18);
   --ink: #eceef3;
   --dim: #a0a6b3;
-  --faint: #6c7280;
+  /* lightened so faint mono labels clear WCAG AA on the dark surfaces */
+  --faint: #868c99;
   --accent: #e08658;
   --accent-ink: #e89069;
   --accent-dim: rgba(224, 134, 88, 0.16);
