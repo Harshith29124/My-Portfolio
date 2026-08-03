@@ -6,18 +6,18 @@ Harshith Nayaka L specialises in the unglamorous part of applied AI — making s
 
 ## Main pages
 
-- [Home](https://my-portfolio-harshith.vercel.app/): Overview, selected work, capabilities, about, and contact.
-- [Contact](https://my-portfolio-harshith.vercel.app/#contact): Send a project enquiry, or email harshith28124@gmail.com directly.
+- [Home](https://harshith-nayaka-l-portfolio.vercel.app/): Overview, selected work, capabilities, about, and contact.
+- [Contact](https://harshith-nayaka-l-portfolio.vercel.app/#contact): Send a project enquiry, or email harshith28124@gmail.com directly.
 
 ## Case studies
 
-- [Creative-Ops Pipeline](https://my-portfolio-harshith.vercel.app/work/creative-ops-pipeline): Flagship. A multi-model content pipeline that turns a one-line brief into validated, on-brand output using tiered model routing, schema-constrained generation, QA gates, and failure recovery.
-- [CraftConnect](https://my-portfolio-harshith.vercel.app/work/craftconnect): Gen AI Exchange Hackathon 2025 semi-finalist. A multi-modal assistant letting artisans run an online storefront by talking and showing instead of typing, built on Gemini and Google Cloud.
-- [Maestro](https://my-portfolio-harshith.vercel.app/work/maestro): A live, open-source multi-model orchestration engine. A conductor routes one task across thinker/worker/verifier roles over free LLMs and returns a single verified answer with a full, replayable decision-log. Live at https://maestro-psi-neon.vercel.app/
-- [ReplyDesk](https://my-portfolio-harshith.vercel.app/work/replydesk): A WhatsApp lead agent that answers every inbound message in ~8 seconds, with a live operations dashboard for the lead feed, pipeline, and response-time KPIs.
-- [Nova AI](https://my-portfolio-harshith.vercel.app/work/nova-ai): A deployed LLM chat app on Llama 3.1 8B that keeps the API token server-side behind a serverless proxy.
-- [BlogSpace](https://my-portfolio-harshith.vercel.app/work/blogspace): A live full-stack blogging platform with JWT auth, role-based access, and an admin panel (React, Node, MongoDB).
-- [AI Notes](https://my-portfolio-harshith.vercel.app/work/ai-notes): A notes app running DeepSeek R1 locally through Ollama, so inference never leaves the machine.
+- [Creative-Ops Pipeline](https://harshith-nayaka-l-portfolio.vercel.app/work/creative-ops-pipeline): Flagship. A multi-model content pipeline that turns a one-line brief into validated, on-brand output using tiered model routing, schema-constrained generation, QA gates, and failure recovery.
+- [CraftConnect](https://harshith-nayaka-l-portfolio.vercel.app/work/craftconnect): Gen AI Exchange Hackathon 2025 semi-finalist. A multi-modal assistant letting artisans run an online storefront by talking and showing instead of typing, built on Gemini and Google Cloud.
+- [Maestro](https://harshith-nayaka-l-portfolio.vercel.app/work/maestro): A live, open-source multi-model orchestration engine. A conductor routes one task across thinker/worker/verifier roles over free LLMs and returns a single verified answer with a full, replayable decision-log. Live at https://maestro-psi-neon.vercel.app/
+- [ReplyDesk](https://harshith-nayaka-l-portfolio.vercel.app/work/replydesk): A WhatsApp lead agent that answers every inbound message in ~8 seconds, with a live operations dashboard for the lead feed, pipeline, and response-time KPIs.
+- [Nova AI](https://harshith-nayaka-l-portfolio.vercel.app/work/nova-ai): A deployed LLM chat app on Llama 3.1 8B that keeps the API token server-side behind a serverless proxy.
+- [BlogSpace](https://harshith-nayaka-l-portfolio.vercel.app/work/blogspace): A live full-stack blogging platform with JWT auth, role-based access, and an admin panel (React, Node, MongoDB).
+- [AI Notes](https://harshith-nayaka-l-portfolio.vercel.app/work/ai-notes): A notes app running DeepSeek R1 locally through Ollama, so inference never leaves the machine.
 
 ## Profiles
 
@@ -26,6 +26,6 @@ Harshith Nayaka L specialises in the unglamorous part of applied AI — making s
 
 ## Optional
 
-- [Privacy Policy](https://my-portfolio-harshith.vercel.app/legal/privacy): What the contact form collects and how it is used.
-- [Terms of Use](https://my-portfolio-harshith.vercel.app/legal/terms): Terms governing use of this site.
-- [Cookie Policy](https://my-portfolio-harshith.vercel.app/legal/cookies): No tracking or advertising cookies are used.
+- [Privacy Policy](https://harshith-nayaka-l-portfolio.vercel.app/legal/privacy): What the contact form collects and how it is used.
+- [Terms of Use](https://harshith-nayaka-l-portfolio.vercel.app/legal/terms): Terms governing use of this site.
+- [Cookie Policy](https://harshith-nayaka-l-portfolio.vercel.app/legal/cookies): No tracking or advertising cookies are used.

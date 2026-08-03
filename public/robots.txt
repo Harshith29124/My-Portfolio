@@ -1,4 +1,4 @@
-# robots.txt — https://my-portfolio-harshith.vercel.app
+# robots.txt — https://harshith-nayaka-l-portfolio.vercel.app
 
 # Search engines
 User-agent: *
@@ -44,4 +44,4 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-Sitemap: https://my-portfolio-harshith.vercel.app/sitemap.xml
+Sitemap: https://harshith-nayaka-l-portfolio.vercel.app/sitemap.xml

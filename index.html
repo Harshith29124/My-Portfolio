@@ -2,7 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script src="/theme-init.js"></script>
+    <script>
+      // Set theme before first paint (no flash). Stored choice wins,
+      // otherwise follow the OS preference.
+      // Inline (not external) so there's no extra render-blocking network
+      // round-trip; kept CSP-strict via a script-src hash in vercel.json
+      // instead of 'unsafe-inline'. If you edit this script, the hash in
+      // vercel.json's CSP must be regenerated to match, or it'll be blocked.
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t)
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          if (t === "dark") document.documentElement.classList.add("dark");
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F6" />
@@ -23,13 +42,13 @@
       content="Harshith Nayaka L is an AI Workflow Engineer at DemandNXT who builds AI systems that turn manual work into reliable automation: multi-model LLM pipelines, multi-modal apps, and structured-output engineering with validation and QA gates."
     />
     <meta name="author" content="Harshith Nayaka L" />
-    <link rel="canonical" href="https://my-portfolio-harshith.vercel.app/" />
+    <link rel="canonical" href="https://harshith-nayaka-l-portfolio.vercel.app/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
     <!-- Open Graph / social preview -->
     <meta property="og:type" content="profile" />
-    <meta property="og:url" content="https://my-portfolio-harshith.vercel.app/" />
+    <meta property="og:url" content="https://harshith-nayaka-l-portfolio.vercel.app/" />
     <meta property="og:site_name" content="Harshith Nayaka L" />
     <meta
       property="og:title"
@@ -39,13 +58,13 @@
       property="og:description"
       content="I build AI systems that turn manual work into reliable automation. Multi-model LLM pipelines, multi-modal apps, and structured-output engineering."
     />
-    <meta property="og:image" content="https://my-portfolio-harshith.vercel.app/og-image.png" />
+    <meta property="og:image" content="https://harshith-nayaka-l-portfolio.vercel.app/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Harshith Nayaka L — AI Workflow Engineer" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://my-portfolio-harshith.vercel.app/og-image.png" />
+    <meta name="twitter:image" content="https://harshith-nayaka-l-portfolio.vercel.app/og-image.png" />
     <meta name="twitter:title" content="Harshith Nayaka L — AI Workflow Engineer" />
     <meta
       name="twitter:description"
@@ -60,10 +79,10 @@
         "@graph": [
           {
             "@type": "Person",
-            "@id": "https://my-portfolio-harshith.vercel.app/#person",
+            "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#person",
             "name": "Harshith Nayaka L",
-            "url": "https://my-portfolio-harshith.vercel.app/",
-            "image": "https://my-portfolio-harshith.vercel.app/profile.jpg",
+            "url": "https://harshith-nayaka-l-portfolio.vercel.app/",
+            "image": "https://harshith-nayaka-l-portfolio.vercel.app/profile.jpg",
             "email": "mailto:harshith28124@gmail.com",
             "jobTitle": "AI Workflow Engineer",
             "worksFor": { "@type": "Organization", "name": "DemandNXT" },
@@ -95,20 +114,20 @@
           },
           {
             "@type": "WebSite",
-            "@id": "https://my-portfolio-harshith.vercel.app/#website",
-            "url": "https://my-portfolio-harshith.vercel.app/",
+            "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#website",
+            "url": "https://harshith-nayaka-l-portfolio.vercel.app/",
             "name": "Harshith Nayaka L — AI Workflow Engineer",
             "inLanguage": "en",
-            "publisher": { "@id": "https://my-portfolio-harshith.vercel.app/#person" }
+            "publisher": { "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#person" }
           },
           {
             "@type": "ProfilePage",
-            "@id": "https://my-portfolio-harshith.vercel.app/#profilepage",
-            "url": "https://my-portfolio-harshith.vercel.app/",
+            "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#profilepage",
+            "url": "https://harshith-nayaka-l-portfolio.vercel.app/",
             "name": "Harshith Nayaka L — AI Workflow Engineer",
-            "isPartOf": { "@id": "https://my-portfolio-harshith.vercel.app/#website" },
-            "about": { "@id": "https://my-portfolio-harshith.vercel.app/#person" },
-            "primaryImageOfPage": "https://my-portfolio-harshith.vercel.app/og-image.png"
+            "isPartOf": { "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#website" },
+            "about": { "@id": "https://harshith-nayaka-l-portfolio.vercel.app/#person" },
+            "primaryImageOfPage": "https://harshith-nayaka-l-portfolio.vercel.app/og-image.png"
           },
           {
             "@type": "ItemList",
@@ -117,43 +136,43 @@
               {
                 "@type": "ListItem",
                 "position": 1,
-                "url": "https://my-portfolio-harshith.vercel.app/work/creative-ops-pipeline",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/creative-ops-pipeline",
                 "name": "Creative-Ops Pipeline — multi-model content pipeline with QA gates"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
-                "url": "https://my-portfolio-harshith.vercel.app/work/craftconnect",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/craftconnect",
                 "name": "CraftConnect — multi-modal storefront assistant (Gen AI Exchange Hackathon 2025 semi-finalist)"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
-                "url": "https://my-portfolio-harshith.vercel.app/work/maestro",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/maestro",
                 "name": "Maestro — live open-source multi-model LLM orchestration engine with a full decision-log"
               },
               {
                 "@type": "ListItem",
                 "position": 4,
-                "url": "https://my-portfolio-harshith.vercel.app/work/replydesk",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/replydesk",
                 "name": "ReplyDesk — WhatsApp lead agent that auto-replies in seconds, with a live operations dashboard"
               },
               {
                 "@type": "ListItem",
                 "position": 5,
-                "url": "https://my-portfolio-harshith.vercel.app/work/nova-ai",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/nova-ai",
                 "name": "Nova AI — deployed Llama 3.1 8B chat app with a server-side token proxy"
               },
               {
                 "@type": "ListItem",
                 "position": 6,
-                "url": "https://my-portfolio-harshith.vercel.app/work/blogspace",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/blogspace",
                 "name": "BlogSpace — full-stack blogging platform with JWT auth and admin panel"
               },
               {
                 "@type": "ListItem",
                 "position": 7,
-                "url": "https://my-portfolio-harshith.vercel.app/work/ai-notes",
+                "url": "https://harshith-nayaka-l-portfolio.vercel.app/work/ai-notes",
                 "name": "AI Notes — local-inference notes app running DeepSeek R1 via Ollama"
               }
             ]
