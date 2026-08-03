@@ -81,6 +81,7 @@ export default function WorkRow({ project }: { project: Project }) {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer noopener"
+                aria-label={`${l.label} — ${title}`}
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-dim transition-colors hover:text-ink"
               >
                 {l.label}
