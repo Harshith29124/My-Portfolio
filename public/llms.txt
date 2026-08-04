@@ -19,6 +19,10 @@ Harshith Nayaka L specialises in the unglamorous part of applied AI — making s
 - [BlogSpace](https://harshith-nayaka-l-portfolio.vercel.app/work/blogspace): A live full-stack blogging platform with JWT auth, role-based access, and an admin panel (React, Node, MongoDB).
 - [AI Notes](https://harshith-nayaka-l-portfolio.vercel.app/work/ai-notes): A notes app running DeepSeek R1 locally through Ollama, so inference never leaves the machine.
 
+## Published research
+
+- [AI-Powered Note-Taking System: A Local Machine Learning Approach DeepSeek R1 Integration](https://www.doi.org/10.59256/ijrtmr.20250506023): Peer-reviewed paper co-authored by Harshith Nayaka L, published in the International Journal of Research Trends and Multidisciplinary Research (IJRTMR), Nov-Dec 2025, pp. 178-189. DOI: 10.59256/ijrtmr.20250506023. Authors: Dr. A Richard William, Harshith Nayaka L, Deepthi S, Rithin S, Dhanushree V. Documents the local-inference architecture behind the AI Notes project: running a model on-device for summarization, writing improvement, idea expansion, and keyword extraction, reporting 87% user satisfaction on summarization with 1.9-3.8 second response times.
+
 ## Profiles
 
 - [GitHub](https://github.com/Harshith29124): Source code for the projects above.

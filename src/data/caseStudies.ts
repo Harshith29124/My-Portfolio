@@ -452,6 +452,10 @@ const aiNotes: CaseStudy = {
   ],
   results: [
     {
+      label: "Published research",
+      body: "The approach behind this project was written up and published: \"AI-Powered Note-Taking System: A Local Machine Learning Approach DeepSeek R1 Integration\", International Journal of Research Trends and Multidisciplinary Research (IJRTMR), Nov-Dec 2025, pp. 178-189 (DOI 10.59256/ijrtmr.20250506023). The paper reports 87% user satisfaction on content summarization with response times of 1.9-3.8 seconds.",
+    },
+    {
       label: "What it demonstrates",
       body: "That local and self-hosted inference is a practical choice, and the awareness of when keeping data on-device matters more than convenience.",
     },
@@ -466,7 +470,13 @@ const aiNotes: CaseStudy = {
     "Vanilla JavaScript",
     "Browser storage",
   ],
-  links: [{ label: "View on GitHub", href: GITHUB }],
+  links: [
+    { label: "View on GitHub", href: GITHUB },
+    {
+      label: "Read the paper (DOI)",
+      href: "https://www.doi.org/10.59256/ijrtmr.20250506023",
+    },
+  ],
 };
 
 const maestro: CaseStudy = {

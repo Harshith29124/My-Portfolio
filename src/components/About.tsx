@@ -1,5 +1,8 @@
 import Reveal from "./Reveal";
 
+/** Resolvable DOI — the citable identifier, not just a publisher page link. */
+const PAPER_DOI = "https://www.doi.org/10.59256/ijrtmr.20250506023";
+
 const facts = [
   { k: "Role", v: "AI Workflow Engineer" },
   { k: "Company", v: "DemandNXT" },
@@ -80,6 +83,33 @@ export default function About() {
                 behave the same way on the hundredth run as the first. That gap,
                 between a demo and something a business can lean on, is most of
                 the job, and it's the part I'm good at.
+              </p>
+            </div>
+
+            {/* Published research. Real, citable proof-of-work — and the
+                academic counterpart to the AI Notes case study. */}
+            <div className="mt-10 border-t border-line pt-6">
+              <h3 className="font-mono text-[12px] font-medium uppercase tracking-wider text-dim">
+                Published research
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-dim">
+                Co-author of{" "}
+                <a
+                  href={PAPER_DOI}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="font-medium text-accent-ink underline decoration-line underline-offset-4 transition-colors hover:text-ink"
+                >
+                  “AI-Powered Note-Taking System: A Local Machine Learning
+                  Approach DeepSeek R1 Integration”
+                </a>
+                , published in the International Journal of Research Trends and
+                Multidisciplinary Research (IJRTMR), Nov–Dec 2025. It documents
+                the local-inference approach behind the AI Notes project —
+                running the model on-device so notes never leave the machine.
+              </p>
+              <p className="mt-2 font-mono text-[12px] text-faint">
+                DOI: 10.59256/ijrtmr.20250506023
               </p>
             </div>
           </div>
