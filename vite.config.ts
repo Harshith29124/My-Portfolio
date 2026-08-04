@@ -34,13 +34,25 @@ function nonBlockingCss(): Plugin {
     transformIndexHtml: {
       order: "post",
       handler(html) {
-        return html.replace(
+        let out = html.replace(
           /<link rel="stylesheet"([^>]*?) href="([^"]+\.css)"([^>]*)>/g,
           (_match, before, href, after) =>
             `<link rel="preload" as="style" id="app-css"${before} href="${href}"${after}>` +
             `<script>${CSS_SWAP_SCRIPT}</script>` +
             `<noscript><link rel="stylesheet" href="${href}"></noscript>`,
         );
+        // The entry script is what actually gates the HTML->JS chain the perf
+        // audit flags, but by default it competes on equal footing with the 8
+        // font preloads and the CSS preload also firing from <head>.
+        // fetchpriority="high" makes the browser's request scheduler favor it
+        // over those when bandwidth is contended, instead of leaving priority
+        // among ~10 parallel head requests to a same-priority default.
+        out = out.replace(
+          /<script type="module"([^>]*?) src="([^"]+)"([^>]*)>/,
+          (_match, before, src, after) =>
+            `<script type="module" fetchpriority="high"${before} src="${src}"${after}>`,
+        );
+        return out;
       },
     },
   };
