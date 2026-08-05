@@ -93,7 +93,7 @@ export default function About() {
                 Published research
               </h3>
               <p className="mt-3 text-base leading-relaxed text-dim">
-                Co-author of{" "}
+                Author of{" "}
                 <a
                   href={PAPER_DOI}
                   target="_blank"
