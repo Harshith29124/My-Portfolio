@@ -19,7 +19,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'sha256-w3Gfnm+kaC7CbxVtkPuNIiZKD1wNM7KFjJnnJN7nnYI=' 'sha256-AfRblq9pQZQcCPmGAyk5ZTSnCyAUMmhWb556bTrLLZM='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'sha256-w3Gfnm+kaC7CbxVtkPuNIiZKD1wNM7KFjJnnJN7nnYI='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default; upgrade-insecure-requests"
         },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
