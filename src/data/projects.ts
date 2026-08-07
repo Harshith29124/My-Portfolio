@@ -56,6 +56,22 @@ export const projects: Project[] = [
     hasCaseStudy: true,
   },
   {
+    slug: "cannon",
+    title: "Cannon",
+    kicker: "Multi-agent, not multi-task",
+    outcome:
+      "A daily-driver multi-agent assistant where each domain gets its own specialist — own persona, own tools, own retrieval scope, isolation enforced at the query, not by convention.",
+    tags: ["Multi-agent", "RAG", "Provider fallback", "Next.js 16"],
+    links: [
+      { label: "Live site", href: "https://cannon-multi-agents.vercel.app" },
+      {
+        label: "GitHub",
+        href: "https://github.com/HarshithNayakaL/cannon-multi-agents",
+      },
+    ],
+    hasCaseStudy: true,
+  },
+  {
     slug: "replydesk",
     title: "ReplyDesk",
     kicker: "WhatsApp lead agent",

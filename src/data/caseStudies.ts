@@ -588,6 +588,116 @@ const maestro: CaseStudy = {
   ],
 };
 
+const cannon: CaseStudy = {
+  slug: "cannon",
+  title: "Cannon",
+  kicker: "Multi-agent, not multi-task",
+  outcome:
+    "A personal assistant used daily, not demoed once: independent domain specialists that share infrastructure but deliberately never share context, with isolation enforced at the query rather than left to convention.",
+  meta: [
+    { label: "Type", value: "Multi-agent assistant, deployed" },
+    { label: "Pattern", value: "Domain specialisation, not task orchestration" },
+    { label: "Stack", value: "Next.js 16 + Vercel AI SDK 7" },
+    { label: "Tests", value: "91 unit + 13 e2e specs" },
+  ],
+  problem: [
+    "A single generalist chatbot wearing every hat is the easy build and the wrong one. Ask it about a workout and a work deadline in the same thread and it's carrying both contexts at once, with no real boundary between them, and no persona suited to either.",
+    "The harder, more honest problem: build something used every day, not shown once. A fitness log with real training data behind it, a work board with real tasks on it, judged by whether it survives daily use, not by how it looks in a five-minute demo.",
+  ],
+  build: [
+    "Cannon runs independent domain agents, each with its own persona, its own system prompt, its own tools, and its own retrieval scope. A fitness agent and a work agent share infrastructure but never share context. Cannon's own README draws the contrast directly: its sibling project Maestro splits a single task across collaborating roles; Cannon runs independent experts that don't collaborate at all. Different architecture, different problem.",
+    "Isolation is enforced at the query, not by convention. The fitness agent can't read work documents even by accident: retrieval takes the agent id as an argument and the Postgres function filters on it internally, so there's no post-filter step a caller could forget to add. The memory store enforces the same boundary as a WHERE clause on the scan. Both paths are unit-tested with mirror-image queries.",
+    "Provider fallback is modeled as a real interface, not a try/catch. A fallback model implements the AI SDK's provider interface and wraps Groq behind Gemini, so streaming, tool execution, and the UI stream protocol are all unaware a swap ever happened. It distinguishes two real failure modes — a call that never connects, versus one that connects and then errors mid-stream — and once real content is flowing, a failure is surfaced rather than silently restarted, because re-running a partially executed tool chain is worse than a visible error.",
+    "Every external dependency has a working fallback, all the way down: no provider key and no database, and the app still boots, builds, passes its full test suite, and serves a working demo. Inference falls back to a scripted model implementing the real provider interface; embeddings fall back to a deterministic lexical embedder; storage falls back to a process-local store. That's what lets CI run true end-to-end tests with zero secrets, exercising the production code path instead of a mocked-out shortcut.",
+  ],
+  pipeline: [
+    {
+      title: "Route",
+      nodes: [
+        { id: "registry", label: "Agent registry", detail: "Explicit tab routing", kind: "logic" },
+      ],
+    },
+    {
+      title: "Specialise",
+      nodes: [
+        { id: "fitness", label: "Fitness agent", detail: "3 tools + RAG", kind: "model" },
+        { id: "work", label: "Work agent", detail: "4 tools + RAG", kind: "model" },
+      ],
+    },
+    {
+      title: "Isolate",
+      nodes: [
+        { id: "scope", label: "Query-scoped retrieval", detail: "Agent id filters at the DB", kind: "gate" },
+      ],
+    },
+    {
+      title: "Infer",
+      nodes: [
+        { id: "groq", label: "Groq (primary)", detail: "Time-to-first-token budget", kind: "model" },
+        { id: "gemini", label: "Gemini (fallback)", detail: "Different vendor, uncorrelated outage", kind: "model" },
+      ],
+    },
+    {
+      title: "Answer",
+      nodes: [
+        { id: "cards", label: "Typed tool-result cards", detail: "Not pasted JSON", kind: "output" },
+      ],
+    },
+  ],
+  howItWorks: [
+    {
+      title: "Isolation is a database filter, not a habit",
+      body: "The fitness agent structurally cannot see work data. Retrieval takes the agent id as an argument the Postgres function filters on internally, and the memory store applies the same boundary as a WHERE clause — there's no separate post-filter step a caller could forget, and both paths carry mirror-image unit tests.",
+    },
+    {
+      title: "A fallback chain that's a typed model, not a caught exception",
+      body: "The fallback wraps Groq behind Gemini by implementing the AI SDK's actual provider interface, so every layer above it — streaming, tool execution, the UI stream protocol — stays unaware a swap happened. It separates a call that never connects from one that connects and fails mid-stream, and treats a mid-stream failure as something to surface, not silently retry, since re-running a half-executed tool chain is its own hazard.",
+    },
+    {
+      title: "Fallbacks all the way down, so CI tests the real path",
+      body: "No API key, no database, and the app still boots, builds, and serves a working demo: a scripted model standing in for inference, a deterministic lexical embedder standing in for embeddings, a process-local store standing in for Postgres. That's what makes it possible for CI to run true end-to-end tests with zero secrets against the production code path, not a mocked shortcut.",
+    },
+    {
+      title: "The Prompt Inspector makes the engineering legible",
+      body: "A docked panel shows the live system prompt driving the active agent, the tool signatures in scope, which provider actually answered, whether a fallback fired, and the retrieved chunks with their similarity scores. A real debugging aid that doubles as evidence for anyone reading the repo.",
+    },
+    {
+      title: "No login, and that's a decision, not an oversight",
+      body: "This is a single-user tool run by one person for their own training log and task board — a login screen would be friction with nothing behind it. Groq and Gemini already enforce their own free-tier ceilings, and the fallback chain already treats a 429 from either as a normal handoff, so there's no second rate limiter layered on top. The README states the tradeoff plainly: anyone with the URL can use the deployment, acceptable for a personal tool with an unlisted link, not something to hand to a wider audience without adding a gate back.",
+    },
+  ],
+  results: [
+    {
+      label: "Tested, not just built",
+      body: "91 unit tests cover the tools, the training maths, RAG scoping, chunking, all four failure modes of the fallback chain, and the store's filters and ranking. 13 end-to-end specs run twice each, desktop and mobile, against a real production build with zero provider keys — both agents' full tool loops, transcript isolation, the inspector, the responsive swap, theme persistence, and horizontal overflow at five breakpoints from 375px to 2200px.",
+    },
+    {
+      label: "Deploys with nothing to configure",
+      body: "Import the repo into Vercel with no environment variables set and it deploys and works immediately, seeded with fitness and work data. Real inference, real embeddings, and durable storage are opt-in upgrades layered on top of a system that already works without them.",
+    },
+    {
+      label: "Honest about its own limits",
+      body: "The README states its known limits directly rather than hiding them: no login (deliberate, for a single-user tool with an unlisted URL), no rate limiting beyond what Groq/Gemini already enforce, and no auto-routing between agents in v1, because a classifier that guesses wrong at 11pm is worse than an explicit tab.",
+    },
+  ],
+  tech: [
+    "Next.js 16 (App Router)",
+    "Vercel AI SDK 7",
+    "Groq + Gemini",
+    "Supabase Postgres + pgvector",
+    "TypeScript (strict)",
+    "Vitest + Playwright",
+    "GitHub Actions",
+  ],
+  links: [
+    { label: "Live app", href: "https://cannon-multi-agents.vercel.app" },
+    {
+      label: "View on GitHub",
+      href: "https://github.com/HarshithNayakaL/cannon-multi-agents",
+    },
+  ],
+};
+
 const replydesk: CaseStudy = {
   slug: "replydesk",
   title: "ReplyDesk",
@@ -688,6 +798,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   craftconnect,
   "creative-ops-pipeline": creativeOps,
   maestro,
+  cannon,
   replydesk,
   "nova-ai": novaAi,
   blogspace,
