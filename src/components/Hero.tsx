@@ -4,7 +4,9 @@ import Magnetic from "./Magnetic";
 import { scrollToSection } from "../lib/scrollToSection";
 
 // Headline split so each word rises on its own beat (CSS mask reveal).
-const HEAD_LEAD = "I build AI systems that turn manual work into".split(" ");
+const HEAD_LEAD = "I build AI systems — agents, RAG, full-stack apps — engineered for".split(
+  " ",
+);
 const d = (s: number) => ({ "--delay": `${s}s` }) as CSSProperties;
 const wordDelay = (i: number) => 0.15 + i * 0.04;
 
@@ -20,7 +22,11 @@ export default function Hero() {
           style={d(0)}
         >
           <span className="text-base font-semibold tracking-tight text-ink">
-            AI Workflow Engineer at DemandNXT
+            AI Engineer, Full-Stack
+          </span>
+          <span className="h-4 w-px bg-line-strong" aria-hidden />
+          <span className="text-[15px] font-medium text-dim">
+            AI Workflow Engineer @ DemandNXT
           </span>
           <span className="h-4 w-px bg-line-strong" aria-hidden />
           <span className="inline-flex items-center gap-2 text-[15px] font-semibold text-accent-ink">
@@ -46,7 +52,7 @@ export default function Hero() {
               className="word-rise accent-shimmer"
               style={d(wordDelay(HEAD_LEAD.length))}
             >
-              reliable automation.
+              production.
             </span>
           </span>
         </h1>
@@ -56,8 +62,9 @@ export default function Hero() {
           className="anim-rise mt-8 max-w-xl text-pretty text-base leading-relaxed text-dim md:text-lg"
           style={d(0.55)}
         >
-          Concretely: multi-model pipelines, LLM apps, and structured output that
-          holds up in production, not just in a demo.
+          Concretely: LLM agents, RAG pipelines, and full-stack AI apps — plus
+          the automation that ties them together. Built to hold up in
+          production, not just in a demo.
         </p>
 
         {/* CTAs */}

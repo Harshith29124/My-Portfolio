@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import type { Project } from "../data/projects";
-import NodeGlyph from "./NodeGlyph";
 
 /**
  * Editorial work row. Each project reads as a full-width index entry — title,
@@ -68,12 +67,8 @@ export default function WorkRow({ project }: { project: Project }) {
           </ul>
         </div>
 
-        {/* right rail: motif + actions */}
-        <div className="flex items-center justify-between gap-6 md:flex-col md:items-end md:justify-end">
-          <NodeGlyph
-            seed={slug}
-            className="text-faint transition-[color,transform] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 group-hover:-rotate-3 group-hover:text-accent-ink"
-          />
+        {/* right rail: actions */}
+        <div className="flex items-center justify-end gap-6 md:justify-end">
           <div className="pointer-events-auto relative z-10 flex items-center gap-5">
             {links.map((l) => (
               <a

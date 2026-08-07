@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import NodeGlyph from "./NodeGlyph";
 import { useTilt } from "../lib/useTilt";
 import { useInView } from "../lib/useInView";
 
@@ -9,24 +8,19 @@ type Tile = {
   title: string;
   body: string;
   span: string;
-  feature?: boolean; // wider tiles get the tinted treatment + motif
+  feature?: boolean; // wider tiles get the tinted treatment
 };
 
 const tiles: Tile[] = [
   {
-    title: "LLM integration & orchestration",
-    body: "Wiring models together so they do real work reliably, not just answer a prompt.",
+    title: "AI agents & orchestration",
+    body: "Multi-step, tool-using agents that reason, call tools, and recover from failure — not a single prompt.",
     span: "lg:col-span-2",
     feature: true,
   },
   {
-    title: "Multi-modal pipelines",
-    body: "Voice, vision, and text turned into one structured, usable result.",
-    span: "lg:col-span-1",
-  },
-  {
-    title: "Output reliability",
-    body: "The same correct shape back every time, so the rest of the system can trust it.",
+    title: "RAG & retrieval",
+    body: "Retrieval pipelines that ground answers in real data, validated before anything reaches a user.",
     span: "lg:col-span-1",
   },
   {
@@ -35,14 +29,19 @@ const tiles: Tile[] = [
     span: "lg:col-span-1",
   },
   {
-    title: "Local + cloud inference",
-    body: "Google Cloud AI, Hugging Face, or fully local via Ollama, whichever the job and budget call for.",
+    title: "Output reliability",
+    body: "The same correct shape back every time, so the rest of the system can trust it.",
+    span: "lg:col-span-1",
+  },
+  {
+    title: "Backend & infra",
+    body: "Production APIs and backends the AI layer runs on — FastAPI, Node, Postgres, serverless.",
     span: "lg:col-span-2",
     feature: true,
   },
   {
     title: "Workflow automation",
-    body: "Automating the glue work between tools with n8n. A means to an end, never the headline.",
+    body: "Automating the glue work between tools with n8n. One tool in the kit, not the whole toolbox.",
     span: "lg:col-span-1",
   },
 ];
@@ -61,19 +60,8 @@ function TileCard({ tile, index }: { tile: Tile; index: number }) {
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         style={{ transformStyle: "preserve-3d" }}
-        className={`group glass-card spotlight relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-[var(--radius-lg)] p-6 active:scale-[0.99] ${
-          tile.feature ? "justify-between" : "justify-start"
-        }`}
+        className="group glass-card spotlight relative flex h-full min-h-[200px] flex-col justify-start overflow-hidden rounded-[var(--radius-lg)] p-6 active:scale-[0.99]"
       >
-        {tile.feature && (
-          <div className="flex justify-end">
-            <NodeGlyph
-              seed={tile.title}
-              className="text-faint transition-colors duration-500 group-hover:text-accent-ink"
-            />
-          </div>
-        )}
-
         <div className="relative" style={{ transform: "translateZ(20px)" }}>
           <h3 className="text-lg font-semibold tracking-tight text-ink transition-colors duration-500 group-hover:text-accent-ink">
             {tile.title}
